@@ -32,12 +32,49 @@ form div {
     margin: 0%;
 }
 
+input {
+    font-size: 1.5em;
+}
+
+#inputFirstNameRegister, #inputSecondNameRegister {
+    width: 70%;
+}
+
+input::placeholder {
+    color: black;
+    opacity: 1;
+}
+
 .colorBlue {
     background-color: #4B6ADB;
 }
 
 .textWhite {
     color : white;
+}
+
+.noneBorder {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    outline: none;
+}
+
+.borderWhite {
+    border: 2px solid white;
+}
+
+.borderBlack {
+    border : 2px solid black;
+}
+
+#btnPswShow:hover {
+    background-color: black;
+}
+
+#btnPswRegister:hover, #btnPswConfirmRegister:hover {
+    background-color: white;
 }
 
 .backBlueTextWhtie {
@@ -72,18 +109,29 @@ form div {
     width: 100%;
 }
 
-.left, .right {
-    flex: 1;                 /* Chaque div prend une part égale de l'espace */
-     
-    box-sizing: border-box;  /* Inclut le padding dans la taille totale de l'élément */
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.marginT3 {
+    margin-top: 3%;
 }
 
 .marginR5 {
     margin-right: 5%;
 }
 
+.marginB3 {
+    margin-bottom: 3%;
+}
+
 .marginB5 {
     margin-bottom: 5%;
+}
+
+.rounded10 {
+    border-radius: 10%;
 }
 
 .rounded25 {
@@ -93,6 +141,11 @@ form div {
 .width40 {
     width: 40%;
 }
+
+.maxWidth50 {
+    max-width: 50%;
+}
+
 .width80 {
     display: flex;
     width: 80%;
