@@ -1,0 +1,164 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0; 
+    width: 100%;
+}
+
+header {
+    width: 100%;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1%;
+    width: 80%;
+}
+
+form div {
+    margin: 0%;
+}
+
+.colorBlue {
+    background-color: #4B6ADB;
+}
+
+.textWhite {
+    color : white;
+}
+
+.backBlueTextWhtie {
+    background-color: #4B6ADB;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 0.1em solid white;
+    outline: none;
+}
+
+.backWiheTextBlack {
+    background-color: white;
+    color: black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 0.1em solid black;
+    outline: none;
+}
+
+.inputButton {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.container {
+    display: flex;           /* Active le mode flexbox */
+    justify-content: space-between; /* Espace entre les deux divs */
+    width: 100%;
+}
+
+.left, .right {
+    flex: 1;                 /* Chaque div prend une part égale de l'espace */
+     
+    box-sizing: border-box;  /* Inclut le padding dans la taille totale de l'élément */
+}
+
+.marginR5 {
+    margin-right: 5%;
+}
+
+.marginB5 {
+    margin-bottom: 5%;
+}
+
+.rounded25 {
+    border-radius: 25%;
+}
+
+.width40 {
+    width: 40%;
+}
+.width80 {
+    display: flex;
+    width: 80%;
+}
+
+.width100 {
+    width: 100;
+}
+
+.whiteBorderSolid2{
+    border: 2% solid white;
+}
+
+.btnBlue {
+    background-color: #4A63DC;  /* Couleur de fond bleue */
+    width: 80%;
+    color: white;               /* Couleur du texte en blanc */
+    border: 2px solid white; /* Bordure blanche avec une légère transparence */
+    border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
+    padding: 5px 10px;         /* Espacement intérieur pour le texte */
+    font-family: Arial, sans-serif; /* Police classique */
+    font-size: 16px;            /* Taille du texte */
+    cursor: pointer;            /* Curseur en forme de main */
+    outline: none;              /* Retire le contour par défaut au focus */
+    display: inline-block;      /* Assure un comportement de type bloc pour les dimensions */
+    transition: background-color 0.3s ease; /* Transition pour les effets */
+}
+
+.btnBlue:hover {
+    background-color: black;  /* Couleur plus foncée au survol */
+}
+
+.btnBlue:active {
+    background-color: #3249B7;  /* Couleur encore plus foncée au clic */
+}
+
+.btnWhite {
+    background-color: white;  /* Couleur de fond bleue */
+    width: 80%;
+    color: black;               /* Couleur du texte en blanc */
+    border: 2px solid black; /* Bordure blanche avec une légère transparence */
+    border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
+    padding: 5px 10px;         /* Espacement intérieur pour le texte */
+    font-family: Arial, sans-serif; /* Police classique */
+    font-size: 16px;            /* Taille du texte */
+    cursor: pointer;            /* Curseur en forme de main */
+    outline: none;              /* Retire le contour par défaut au focus */
+    display: inline-block;      /* Assure un comportement de type bloc pour les dimensions */
+    transition: background-color 0.3s ease; /* Transition pour les effets */
+}
+
+.btnWhite:hover {
+    background-color: black;
+    color: white; 
+    border: 2px solid #4A63DC;
+}
+
+.btnWhite:active {
+    background-color: #3249B7;  /* Couleur encore plus foncée au clic */
+}
+
+.centerColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
