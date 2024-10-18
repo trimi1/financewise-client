@@ -81,7 +81,7 @@ function RegisterForm() {
                         <input type={isVisibleConfirm ? "text" : "password"} value={confirmPassword} required="required" minLength="6" onChange={handleConfirmPassword} className="backWiheTextBlack marginR5 width80"></input><button type="button" onClick={handleDisplayPasswordConfirm}>📌</button>
                     </div>
                 </label>
-                <button type="submit" disabled={isDisabled} className="btnWhit">Confirmer</button>
+                <button type="submit" disabled={isDisabled} className="btnWhite">Confirmer</button>
             </form>
         </div>
     </main>
