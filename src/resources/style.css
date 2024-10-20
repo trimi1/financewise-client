@@ -26,6 +26,7 @@ form label {
     flex-direction: column;
     margin-bottom: 1%;
     width: 80%;
+    font-size: 1.5em;
 }
 
 form div {
@@ -33,7 +34,7 @@ form div {
 }
 
 input {
-    font-size: 1.5em;
+    font-size: 1.1em;
 }
 
 #inputFirstNameRegister, #inputSecondNameRegister {
@@ -69,6 +70,10 @@ input::placeholder {
     border : 2px solid black;
 }
 
+.borderRed {
+    border: 2px solid red;
+}
+
 #btnPswShow:hover {
     background-color: black;
 }
@@ -100,6 +105,7 @@ input::placeholder {
 .inputButton {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -155,13 +161,21 @@ input::placeholder {
     width: 100;
 }
 
+.opacity30 {
+    opacity: 0.3; 
+}
+
+.opaque {
+    opacity: 1; 
+}
+
 .whiteBorderSolid2{
     border: 2% solid white;
 }
 
 .btnBlue {
     background-color: #4A63DC;  /* Couleur de fond bleue */
-    width: 80%;
+    width: 40%;
     color: white;               /* Couleur du texte en blanc */
     border: 2px solid white; /* Bordure blanche avec une légère transparence */
     border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
@@ -184,7 +198,7 @@ input::placeholder {
 
 .btnWhite {
     background-color: white;  /* Couleur de fond bleue */
-    width: 80%;
+    width: 40%;
     color: black;               /* Couleur du texte en blanc */
     border: 2px solid black; /* Bordure blanche avec une légère transparence */
     border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
@@ -198,9 +212,9 @@ input::placeholder {
 }
 
 .btnWhite:hover {
-    background-color: black;
+    background-color: #4A63DC;
     color: white; 
-    border: 2px solid #4A63DC;
+    border: 2px solid black;
 }
 
 .btnWhite:active {

@@ -1,9 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import RegisterForm from './form.jsx'
+import LoginForm from './loginForm.jsx'
+import RegisterForm from './registerForm.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RegisterForm />
+    <main className="container">
+      <LoginForm />
+      <RegisterForm />
+    </main>
   </StrictMode>,
 )
