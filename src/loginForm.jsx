@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react"
+import axios from "axios"
 import "./resources/style.css"
 function LoginForm() {
 
@@ -34,9 +35,27 @@ function LoginForm() {
         }
     }, [password, email]);
 
+    const login = async (email, password) => {
+        return fetch('http://localhost:8080/financewise/auth/authenticate', {method: 'POST',  headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({
+            email: email,
+            password: password
+          })}).then(response => {
+            if (!response.ok) {
+                setReport(`Error STATUS : ${response.status}`)
+                throw new Error('Erreur HTTP POST : ' + response.status);
+            }
+            return response.json();
+          }).then(data => {
+            setReport('Token stored successfully')
+          }).catch(error => {
+             setReport(`Error : ${error.message}`)
+          });
+      }
+
     const handleSubmition = (event) => {
         event.preventDefault()
-        setReport(`Email : ${email} Password : ${password}`)
+        login(email, password)
+
     }
 
     return <div className="colorBlue centerColumn  maxWidth50" >
