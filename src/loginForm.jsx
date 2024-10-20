@@ -48,7 +48,7 @@ function LoginForm() {
           }).then(data => {
             setReport('Token stored successfully')
           }).catch(error => {
-             setReport(`Error : ${error.message}`)
+            setReport(`Error STATUS: ${error.status}. Details: ${error.message}`);
           });
       }
 
