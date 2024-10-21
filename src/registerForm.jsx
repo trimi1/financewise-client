@@ -4,6 +4,9 @@ function RegisterForm() {
 
     const [isVisible, setIsVisible] = useState(false)
     const [isVisibleConfirm, setIsVisibleConfirm] = useState(false)
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [isDisabled, setIsDisabled] = useState(true)
@@ -43,6 +46,18 @@ function RegisterForm() {
         }
     });
 
+    const handleFirstName = (event) => {
+        setFirstName(event.target.value)
+    }
+
+    const handleLastName = (event) => {
+        setLastName(event.target.value)
+    }
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
     const handlePassword = (event) => {
         setPassword(event.target.value)
     }
@@ -51,18 +66,42 @@ function RegisterForm() {
         setConfirmPassword(event.target.value)
     }
 
+    const register = async (firstName, lastName, email, password) => {
+        return fetch('http://localhost:8080/financewise/auth/register', {method: 'POST',  headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({
+            firstName : firstName,
+            lastName :  lastName,
+            email : email,
+            password : password
+          })}).then(response => {
+            if (!response.ok) {
+                //setReport(`Error STATUS : ${response.status}`)
+                throw new Error('Erreur HTTP POST : ' + response.status + ' Message : ' + response.message) ;
+            }
+            return response.json();
+          }).then(data => {
+            localStorage.setItem("TOKEN", data.token)
+            window.location.href = '../home.html';
+          }).catch(error => {
+            setReport(`${error.message}`);
+          });
+      }
+
+    const handleSubmition = () => {
+
+    }
+
     return  <div className="centerColumn maxWidth50">
-                <form className="centerColumn">
+                <form className="centerColumn" onSubmit={handleSubmition}> 
                     <div className="flexRow width80">
                         <label className="marginR5">Nom
-                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack"></input>
+                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack" maxLength="100" value={firstName} onChange={handleFirstName}></input>
                         </label>
                         <label>Prénom
-                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack"></input>
+                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack" maxLength="100" value={lastName} onChange={handleLastName}></input>
                         </label>
                     </div>
                     <label>Email
-                        <input type="email" required="required" className="backWiheTextBlack"></input>
+                        <input type="email" required="required" className="backWiheTextBlack" maxLength="250" value={email} onChange={handleEmail}></input>
                     </label>
                     <label>Mot de passe
                         <div className="inputButton marginB5">
