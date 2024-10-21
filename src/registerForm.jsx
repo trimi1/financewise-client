@@ -86,8 +86,9 @@ function RegisterForm() {
           });
       }
 
-    const handleSubmition = () => {
-
+    const handleSubmition = (event) => {
+        event.preventDefault()
+        register(firstName, lastName, email, password)
     }
 
     return  <div className="centerColumn maxWidth50">
