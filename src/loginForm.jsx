@@ -61,7 +61,7 @@ function LoginForm() {
     return <div className="colorBlue centerColumn  maxWidth50" >
             <form className="centerColumn" onSubmit={handleSubmition}>
                 <label className="textWhite marginB3">Email
-                    <input type="email" required="required" maxLength="100" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" className="backBlueTextWhtie marginT3" value={email} onChange={handleEmail} ></input>
+                    <input type="email" required="required" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" className="backBlueTextWhtie marginT3" value={email} onChange={handleEmail} ></input>
                 </label>
                 <label className="textWhite">Mot de passe
                     <div className="inputButton marginB5 marginT3">
@@ -69,7 +69,6 @@ function LoginForm() {
                     </div>
                 </label>
                 <button type="submit" className="btnBlue" disabled={isDisabled} style={{ opacity: isDisabled ? 0.3 : 1}}>Confirmer</button>
-                
             </form>
             <h2>{report}</h2>
         </div>

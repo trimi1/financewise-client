@@ -95,23 +95,23 @@ function RegisterForm() {
                 <form className="centerColumn" onSubmit={handleSubmition}> 
                     <div className="flexRow width80">
                         <label className="marginR5">Nom
-                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack" maxLength="100" value={firstName} onChange={handleFirstName}></input>
+                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={firstName} onChange={handleFirstName}></input>
                         </label>
                         <label>Prénom
-                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack" maxLength="100" value={lastName} onChange={handleLastName}></input>
+                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={lastName} onChange={handleLastName}></input>
                         </label>
                     </div>
                     <label>Email
-                        <input type="email" required="required" className="backWiheTextBlack" maxLength="250" value={email} onChange={handleEmail}></input>
+                        <input type="email" required="required" className="backWiheTextBlack" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" value={email} onChange={handleEmail}></input>
                     </label>
                     <label>Mot de passe
                         <div className="inputButton marginB5">
-                            <input type={isVisible ? "text" : "password"} value={password} required="required" minLength="6" onChange={handlePassword} className="backWiheTextBlack marginR5 width80"></input><button type="button" id="btnPswRegister" onClick={handleVisibilityPassword} className="colorBlue borderBlack rounded25">🔓</button>
+                            <input type={isVisible ? "text" : "password"} value={password} required="required" minLength="6" pattern="^[^<>&]*$" onChange={handlePassword} className="backWiheTextBlack marginR5 width80"></input><button type="button" id="btnPswRegister" onClick={handleVisibilityPassword} className="colorBlue borderBlack rounded25">🔓</button>
                         </div>
                     </label>
                     <label className="marginB5">Confirmer votre mot de passe
                         <div className="inputButton marginB5">
-                            <input type={isVisibleConfirm ? "text" : "password"} value={confirmPassword} required="required" minLength="6" onChange={handleConfirmPassword} className="backWiheTextBlack marginR5 width80"></input><button type="button" id="btnPswConfirmRegister" onClick={handleVisibilityPswdConfirm} className="colorBlue borderBlack rounded25">🔓</button>
+                            <input type={isVisibleConfirm ? "text" : "password"} value={confirmPassword} required="required" minLength="6" pattern="^[^<>&]*$" onChange={handleConfirmPassword} className="backWiheTextBlack marginR5 width80"></input><button type="button" id="btnPswConfirmRegister" onClick={handleVisibilityPswdConfirm} className="colorBlue borderBlack rounded25">🔓</button>
                         </div>
                     </label>
                     <button type="submit" disabled={isDisabled} className="btnWhite" style={{ opacity: isDisabled ? 0.3 : 1}}>Confirmer</button>
