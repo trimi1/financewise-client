@@ -33,15 +33,13 @@ function RegisterForm() {
 
     useEffect(() => {
         if(password.length < 6 ||  confirmPassword.length < 6) {
-            setReport("Mot de passe trop court ! " + "Password : " + password + " longeur :" + password.length + " Password Confirm : "+ confirmPassword + " longeur :" + confirmPassword.length)
+            // voir pour modifier le style css
             return
         }
         if(password === confirmPassword) {
-            setReport("Confirmation désactiver")
             setIsDisabled(false)
         } 
         if(isDisabled === false && password !== confirmPassword) {
-            setReport("Confirmation actif")
             setIsDisabled(true)
         }
     });
@@ -72,9 +70,11 @@ function RegisterForm() {
             lastName :  lastName,
             email : email,
             password : password
-          })}).then(response => {
+        })}).then(response => {
             if (!response.ok) {
-                //setReport(`Error STATUS : ${response.status}`)
+                if(response.status === 403) {
+                    throw new Error("Erreur : 403") ;
+                }
                 throw new Error('Erreur HTTP POST : ' + response.status + ' Message : ' + response.message) ;
             }
             return response.json();
@@ -83,7 +83,12 @@ function RegisterForm() {
             localStorage.setItem("EMAIL", email)
             window.location.href = '../home.html';
           }).catch(error => {
-            setReport(`${error.message}`);
+            if(error.message === "Erreur : 403") {
+                setReport("Erreur de connexion : Veuillez vérifier vos identifiants.")
+            } else {
+                setReport("Erreur de connexion : Service injoignable.") 
+            }
+            document.getElementById('error-Text-register').setAttribute("class", "error-text")
           });
       }
 
@@ -94,16 +99,17 @@ function RegisterForm() {
 
     return  <div className="centerColumn maxWidth50">
                 <form className="centerColumn" onSubmit={handleSubmition}> 
+                    <h2 id="error-Text-register">{report}</h2>
                     <div className="flexRow width80">
                         <label className="marginR5">Nom
-                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={firstName} onChange={handleFirstName}></input>
+                            <input type="text" id="inputSecondNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={firstName} onChange={handleFirstName} autoComplete="of"></input>
                         </label>
                         <label>Prénom
-                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={lastName} onChange={handleLastName}></input>
+                            <input type="text" id="inputFirstNameRegister" required="required" className="backWiheTextBlack" maxLength="100" pattern="^[^<>&]*$" value={lastName} onChange={handleLastName} autoComplete="of"></input>
                         </label>
                     </div>
                     <label>Email
-                        <input type="email" required="required" className="backWiheTextBlack" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" value={email} onChange={handleEmail}></input>
+                        <input type="email" required="required" className="backWiheTextBlack" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" value={email} onChange={handleEmail} autoComplete="of"></input>
                     </label>
                     <label>Mot de passe
                         <div className="inputButton marginB5">

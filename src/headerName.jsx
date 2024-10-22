@@ -26,9 +26,7 @@ function HeaderName() {
         getFullName(email)
     }, []);
 
-    return <ul>
-        <li class="is-active is-flex is-justify-content-center is-align-items-center p-3 is-size-6"><a>{fullname || 'Chargement...'}</a></li>
-    </ul>
+    return <li className="is-flex is-justify-content-center is-align-items-center text-size-1-3"><a>{fullname || 'Chargement...'}</a></li>
 }
 
 export default HeaderName

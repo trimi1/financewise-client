@@ -40,7 +40,9 @@ function LoginForm() {
             password: password
           })}).then(response => {
             if (!response.ok) {
-                //setReport(`Error STATUS : ${response.status}`)
+                if(response.status === 403) {
+                    throw new Error("Erreur : 403") ;
+                }
                 throw new Error('Erreur HTTP POST : ' + response.status + ' Message : ' + response.message) ;
             }
             return response.json();
@@ -49,7 +51,12 @@ function LoginForm() {
             localStorage.setItem("EMAIL", email)
             window.location.href = '../home.html';
           }).catch(error => {
-            setReport(`${error.message}`);
+            if(error.message === "Erreur : 403") {
+                setReport("Erreur de connexion : Veuillez vérifier vos identifiants.")
+            } else {
+                setReport("Erreur de connexion : Service injoignable.") 
+            }
+            document.getElementById('error-Text-login').setAttribute("class", "error-text")
           });
       }
 
@@ -61,8 +68,9 @@ function LoginForm() {
 
     return <div className="colorBlue centerColumn  maxWidth50" >
             <form className="centerColumn" onSubmit={handleSubmition}>
+                <h2 id="error-Text-login">{report}</h2>
                 <label className="textWhite marginB3">Email
-                    <input type="email" required="required" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" className="backBlueTextWhtie marginT3" value={email} onChange={handleEmail} ></input>
+                    <input type="email" required="required" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" className="backBlueTextWhtie marginT3" value={email} onChange={handleEmail} autoComplete="of"></input>
                 </label>
                 <label className="textWhite">Mot de passe
                     <div className="inputButton marginB5 marginT3">
@@ -71,7 +79,6 @@ function LoginForm() {
                 </label>
                 <button type="submit" className="btnBlue" disabled={isDisabled} style={{ opacity: isDisabled ? 0.3 : 1}}>Confirmer</button>
             </form>
-            <h2>{report}</h2>
         </div>
 }
 
