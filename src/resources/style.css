@@ -292,7 +292,6 @@ a {
     font-size: 16px;            /* Taille du texte */
     cursor: pointer;            /* Curseur en forme de main */
     outline: none;              /* Retire le contour par défaut au focus */
-    display: inline-block;      /* Assure un comportement de type bloc pour les dimensions */
     transition: background-color 0.3s ease; /* Transition pour les effets */
 }
 
