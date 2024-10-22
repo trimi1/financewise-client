@@ -46,6 +46,7 @@ function LoginForm() {
             return response.json();
           }).then(data => {
             localStorage.setItem("TOKEN", data.token)
+            localStorage.setItem("EMAIL", email)
             window.location.href = '../home.html';
           }).catch(error => {
             setReport(`${error.message}`);

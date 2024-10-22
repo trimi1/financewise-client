@@ -3,11 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="./src/resources/myStyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/d066ddcacd.js" crossorigin="anonymous"></script>
     <title>Home page</title>
   </head>
-  <body>
-    <h1>Home page</h1>
+  <body class="is-flex is-flex-direction-column has-background-white">
+    <header class="is-flex is-flex-direction-row heightVM5">
+      <div class="is-flex is-justify-content-center colorBlue width10">
+        <a href="" class="is-flex is-justify-content-center is-align-items-center p-3 is-size-4 has-text-white">Finance Wise</a>
+      </div>
+      <div id="root" class="navbar-menu navbar-end tabs is-right colorGreyLight m-0"></div>
+      <script type="module" src="/src/header.jsx"></script>
+    </header>
+    <main class="is-flex is-flex-direction-row is-align-items-center is-fullheight">
+      <aside class="width10 is-flex is-justify-content-center is-align-items-center">
+        <ul>
+          Menu principal
+          <li><a>Mes dépenses</a></li>
+          <li><a>Mes catégories</a></li>
+          <li><a>Mes objectifs</a></li>
+          <li><a>Conseils - chat</a></li>
+          <li><a>Investissements</a></li>
+          <li><a>Quizz</a></li>
+          <li><a>Infromations</a></li>
+        </ul>
+      </aside>
+      <section>
+        <h1>Home page</h1>
+      </section>
+    </main>
   </body>
 </html>
