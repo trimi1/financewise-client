@@ -69,10 +69,10 @@ function LoginForm() {
     return <div className="colorBlue centerColumn  maxWidth50" >
             <form className="centerColumn" onSubmit={handleSubmition}>
                 <h2 id="error-Text-login">{report}</h2>
-                <label className="textWhite marginB3">Email
+                <label className="text-White marginB3">Email
                     <input type="email" required="required" maxLength="250" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" className="backBlueTextWhtie marginT3" value={email} onChange={handleEmail} autoComplete="of"></input>
                 </label>
-                <label className="textWhite">Mot de passe
+                <label className="text-White">Mot de passe
                     <div className="inputButton marginB5 marginT3">
                         <input type={isVisible ? "text" : "password"} value={password} required="required" minLength="6" pattern="^[^<>&]*$" onChange={handlePassword} className="backBlueTextWhtie marginR5 width80" placeholder="******"></input><button type="button" id="btnPswShow" onClick={handleVisibilityPassword} className="colorBlue borderWhite rounded25">🔓</button>
                     </div>

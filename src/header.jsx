@@ -6,5 +6,5 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
         <HeaderName />
     </StrictMode>,
-  )
+)
   
