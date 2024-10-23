@@ -9,7 +9,7 @@ function Aside() {
             <Link to="/depenses" className="text-size-1-3 text-center text-White">Mes dépenses</Link>
         </li>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <a href="/" className="text-size-1-3 text-center text-White">Mes catégories</a>
+            <a href="/public" className="text-size-1-3 text-center text-White">Mes catégories</a>
         </li>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
             <Link to="/goals" className="text-size-1-3 text-center text-White">Mes objectifs</Link>

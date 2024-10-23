@@ -1,6 +1,6 @@
-import Header from "./header";
-import Aside from "./aside";
-import Goals from "./goals";
+import Header from "../component/header.jsx";
+import Aside from "../component/aside.jsx";
+import Goals from "../component/goals.jsx";
 
 function GoalsPage() {
     return (<>

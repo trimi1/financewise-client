@@ -1,5 +1,5 @@
-import LoginForm from './loginForm.jsx';
-import RegisterForm from './registerForm.jsx';
+import LoginForm from '../component/loginForm.jsx';
+import RegisterForm from '../component/registerForm.jsx';
 
 function AuthPage() {
 return <main className="container" >

@@ -1,6 +1,6 @@
-import Header from "./header";
-import Home from "./home";
-import Aside from "./aside";
+import Header from "../component/header.jsx";
+import Home from "../component/home.jsx";
+import Aside from "../component/aside.jsx";
 
 function HomePage() {
     return (<>

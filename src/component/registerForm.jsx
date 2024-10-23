@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./resources/style.css";
+import "../resources/style.css";
 
 function RegisterForm() {
     const [isVisible, setIsVisible] = useState(false);
