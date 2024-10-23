@@ -1,14 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import LoginForm from './loginForm.jsx'
-import RegisterForm from './registerForm.jsx'
-
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AuthPage from './AuthPage.jsx';
+import Home from './Home.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <main className="container">
-      <LoginForm />
-      <RegisterForm />
-    </main>
-  </StrictMode>,
-)
+    <StrictMode>
+        <Router>
+            <main className="container">
+                <Routes>
+                    <Route path="/" element={<AuthPage />} />
+                    <Route path="/home" element={<Home />} />
+                </Routes>
+            </main>
+        </Router>
+    </StrictMode>
+);
