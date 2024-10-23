@@ -63,7 +63,6 @@ function LoginForm() {
     const handleSubmition = (event) => {
         event.preventDefault()
         login(email, password)
-
     }
 
     return <div className="colorBlue centerColumn  maxWidth50" >
