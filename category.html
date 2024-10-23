@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="my-bulma-project.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/d066ddcacd.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Home page</title>
+</head>
+
+<body>
+<header class="is-flex is-justify-content-space-between p-4 has-background-primary">
+    <div class="is-flex is-align-items-center">
+        <a href="" class="title has-text-white">Finance Wise</a>
+    </div>
+    <div id="root" class="is-flex is-justify-content-center is-align-items-center"></div>
+    <script type="module" src="/src/header.jsx"></script>
+</header>
+
+<main class="is-flex">
+    <!-- Sidebar Menu -->
+    <aside class="menu has-background-primary p-4" style="width: 20%;">
+        <h2 class="title has-text-white">Menu principal</h2>
+        <hr class="is-divider">
+        <ul class="menu-list">
+            <li><a href="" class=" has-text-white is-size-5">Mes dépenses</a></li>
+            <li><a href="category.html" class="has-text-white is-size-5">Mes catégories</a></li>
+            <li><a href="" class="has-text-white is-size-5">Mes objectifs</a></li>
+            <li><a href="" class="has-text-white is-size-5">Conseils - chat</a></li>
+            <li><a href="" class="has-text-white is-size-5">Investissements</a></li>
+            <li><a href="" class="has-text-white is-size-5">Quizz</a></li>
+            <li><a href="" class="has-text-white is-size-5">Informations</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content" style="flex-grow: 1;">
+        <!-- Main Content -->
+        <div class="column">
+            <div class="table-container">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="column">
+                            <h2 class="title">Vos catégories</h2>
+                            <p class="subtitle">Listing de vos catégories</p>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <span class="icon edit-icon">
+                            <i class="fas fa-edit"></i> <!-- L'icône de modification -->
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Table des catégories -->
+                <table class="table is-striped is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Montant Max</th>
+                        <th>Devise</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Famille</td>
+                        <td>600.55</td>
+                        <td>€</td>
+                    </tr>
+                    <tr>
+                        <td>Entretien</td>
+                        <td>350.00</td>
+                        <td>€</td>
+                    </tr>
+                    <tr>
+                        <td>Soirée</td>
+                        <td>200.00</td>
+                        <td>€</td>
+                    </tr>
+                    <tr>
+                        <td>Voiture</td>
+                        <td>1250.00</td>
+                        <td>€</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

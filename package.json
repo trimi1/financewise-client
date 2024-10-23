@@ -7,14 +7,17 @@
     "dev": "vite --port 3536",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-bulma": "sass --load-path=node_modules my-bulma-project.scss my-bulma-project.css",
+    "start": "npm run build-bulma -- --watch"
   },
   "proxy": "http://localhost:8080",
   "dependencies": {
     "bulma": "^1.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0"
+    "react-router-dom": "^6.27.0",
+    "sass": "^1.80.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
