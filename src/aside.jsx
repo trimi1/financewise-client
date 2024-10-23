@@ -6,7 +6,7 @@ function Aside() {
     <ul className="is-flex is-flex-direction-column padding-0">
         <h2 className="text-size-1-5 text-White border-bottom-white padding-B10">Menu principal</h2>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/depense" className="text-size-1-3 text-center text-White">Mes dépenses</Link>
+            <Link to="/depenses" className="text-size-1-3 text-center text-White">Mes dépenses</Link>
         </li>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
             <a href="/" className="text-size-1-3 text-center text-White">Mes catégories</a>
