@@ -68,9 +68,7 @@ function LoginForm() {
         login(email, password);
     };
 
-    return (
-        <div className="colorBlue centerColumn maxWidth50">
-            <form className="centerColumn" onSubmit={handleSubmition}>
+    return ( <form className="centerColumn" onSubmit={handleSubmition}>
                 <h2 id="error-Text-login">{report}</h2>
                 <label className="text-White marginB3">
                     Email
@@ -117,7 +115,6 @@ function LoginForm() {
                     Confirmer
                 </button>
             </form>
-        </div>
     );
 }
 

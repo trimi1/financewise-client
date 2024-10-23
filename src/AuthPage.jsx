@@ -2,16 +2,14 @@ import LoginForm from './loginForm.jsx';
 import RegisterForm from './registerForm.jsx';
 
 function AuthPage() {
-    return (
-        <div className="auth-container">
-            <div className="auth-form">
+return <main className="container" >
+            <div className="colorBlue centerColumn maxWidth50"> 
                 <LoginForm />
             </div>
-            <div className="auth-form">
+            <div className="centerColumn maxWidth50">
                 <RegisterForm />
             </div>
-        </div>
-    );
+        </main>
 }
 
 export default AuthPage;

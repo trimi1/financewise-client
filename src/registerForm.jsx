@@ -74,9 +74,7 @@ function RegisterForm() {
         register(firstName, lastName, email, password);
     };
 
-    return (
-        <div className="centerColumn maxWidth50">
-            <form className="centerColumn" onSubmit={handleSubmition}>
+    return (<form className="centerColumn" onSubmit={handleSubmition}>
                 <h2 id="error-Text-register">{report}</h2>
                 <div className="flexRow width80">
                     <label className="marginR5">
@@ -170,7 +168,6 @@ function RegisterForm() {
                     Confirmer
                 </button>
             </form>
-        </div>
     );
 }
 

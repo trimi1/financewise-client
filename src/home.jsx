@@ -1,47 +1,9 @@
 import React from 'react';
-import './resources/style.css';
 
-const App = () => {
-    return (
-        <>
-            <header className="is-flex is-flex-direction-row is-justify-content-space-between heightVM5 color-light-grey">
-                <div id="name-project-link" className="is-flex is-align-items-center is-justify-content-center width12 colorBlue border-bottom-white">
-                    <a href="/" className="is-flex is-justify-content-center is-align-items-center text-size-1-3 text-White">Finance Wise</a>
-                </div>
-                <div id="root" className="is-flex is-justify-content-center is-align-items-center marginR5"></div>
-            </header>
-
-            <main className="is-flex is-flex-direction-row">
-                <aside className="is-flex is-justify-content-center is-align-items-center width12 colorBlue">
-                    <ul className="is-flex is-flex-direction-column padding-0">
-                        <h2 className="text-size-1-5 text-White border-bottom-white padding-B10">Menu principal</h2>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Mes dépenses</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Mes catégories</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Mes objectifs</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Conseils - chat</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Investissements</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Quizz</a>
-                        </li>
-                        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-                            <a href="/" className="text-size-1-3 text-center text-White">Informations</a>
-                        </li>
-                    </ul>
-                </aside>
-
-                <section>
-                    <h1 className="marginL5">Bienvenue :</h1>
-                    <div className="container-grid-2E-2L height-80">
+const Home = () => {
+    return (<section>
+                <h1 className="marginL5">Bienvenue :</h1>
+                <div className="container-grid-2E-2L height-80">
                         <article className="colorBlue text-White margin-5 height-70">
                             <h2 className="marginL5 marginR5">Ce mois-ci :</h2>
                             <h3 className="marginL5 marginR5">- Vous avez fait aucune dépense</h3>
@@ -64,9 +26,7 @@ const App = () => {
                         </article>
                     </div>
                 </section>
-            </main>
-        </>
     );
 };
 
-export default App;
+export default Home;
