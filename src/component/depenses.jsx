@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Goal from "../dto/Goal.js";
-import Category from "../dto/Category.js";
-import Depense from "../dto/Depense.js";
+import CategoryDTO from "../dto/categoryDTO.js";
+import DepenseDTO from "../dto/depenseDTO.js";
+import {GoalsDTO} from "../dto/goalsDTO.js";
 
 function Depenses() {
     const [depenses, setDepenses] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("EMAIL")}`, {
+        fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,9 +22,9 @@ function Depenses() {
             })
             .then(array => {
                 const depensesArray = array.map(depense => {
-                    let objectif = new Goal(depense.objectif.id, depense.objectif.name, depense.objectif.devise, depense.objectif.montant, depense.objectif.deadline, depense.objectif.recommendation);
-                    let categorie = new Category(depense.categorie.id, depense.categorie.name, depense.categorie.montantMax, depense.categorie.devise);
-                    return new Depense(depense.id, depense.name, depense.montant, depense.devise, depense.date, categorie, objectif);
+                    let objectif = new GoalsDTO({id: depense.objectif.id, name: depense.objectif.name, montant: depense.objectif.montant, devise: depense.objectif.devise, deadline: depense.objectif.deadline,recommendation: depense.objectif.recommendation});
+                    let categorie = new CategoryDTO(depense.categorie.id, depense.categorie.name, depense.categorie.montantMax, depense.categorie.devise);
+                    return new DepenseDTO(depense.id, depense.name, depense.montant, depense.devise, depense.date, categorie, objectif);
                 });
                 console.log(depensesArray)
                 setDepenses(depensesArray);

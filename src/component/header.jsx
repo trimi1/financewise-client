@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function Header() {
 
     const [fullname, setFullName] = useState("")
-    const getFullName = async (email) => {
-        let url = `http://localhost:8080/financewise/users/${email}?fields=firstName,lastName`
+    const getFullName = async () => {
+        let url = `http://localhost:8080/financewise/users/${localStorage.getItem("IDUSER")}?fields=firstName,lastName`
         let token = localStorage.getItem("TOKEN")
         return fetch(url, {method: 'GET',  headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}}).then(response => {
             if (!response.ok) {
@@ -22,8 +22,7 @@ function Header() {
     }
 
     useEffect(() => {
-        let email = localStorage.getItem("EMAIL")
-        getFullName(email)
+        getFullName()
     }, []);
 
     return <header className="is-flex is-flex-direction-row is-justify-content-space-between heightVM5 color-light-grey">

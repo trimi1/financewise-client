@@ -1,4 +1,4 @@
-class Category {
+class CategoryDTO {
     constructor(id, name, montantMax, devise) {
         this.id = id;
         this.name = name;
@@ -7,4 +7,4 @@ class Category {
     }
 }
 
-export default Category;
+export default CategoryDTO;

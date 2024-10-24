@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoalsDTO } from './dto/goalsDTO';
+import {GoalsDTO} from "../dto/goalsDTO.js";
 
 function Goals() {
     const [editMode, setEditMode] = useState(false)
@@ -92,7 +92,7 @@ function Goals() {
                         <th>Objectif financier</th>
                         <th>Date limite</th>
                         <th>Devise</th>
-                        <th className={`${editMode ? "" : "width2 hidden"}`}></th>
+                        <th className={`text-center ${editMode ? "" : "width2 hidden"}`}>➕</th>
                     </tr>
                     </thead>
                     <tbody>
