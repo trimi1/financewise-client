@@ -1,7 +1,6 @@
 export {GoalsDTO}
 
 class GoalsDTO {
-
     id = -1;
     name = "";
     montant = 0.0;
