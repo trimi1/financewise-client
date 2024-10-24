@@ -95,10 +95,6 @@ function Goals() {
 
 
     const allGoals = [...goalsList, ...handleAddedGoals];
-
-    function isGoalSelectedForDeletion(goal, handleDeletedGoals) {
-        return handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id);
-    }
     
     return <section>
         <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center"> 
