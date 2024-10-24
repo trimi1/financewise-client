@@ -1,5 +1,4 @@
 class GoalsDTO {
-    
     constructor({id = -1, name = "", montant = 0.0, devise = "", deadline = new Date(), recommendation = ""} = {}) {
         this.id = id;
         this.name = name;
