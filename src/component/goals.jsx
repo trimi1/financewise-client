@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {GoalsDTO} from "../dto/goalsDTO.js";
+import GoalsDTO from "../dto/goalsDTO.js";
 
 function Goals() {
     const [editMode, setEditMode] = useState(false)
