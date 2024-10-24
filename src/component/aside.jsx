@@ -18,7 +18,7 @@ function Aside() {
             <Link to="/advice" className="text-size-1-3 text-center text-White">Conseils - chat</Link>
         </li>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="Investments" className="text-size-1-3 text-center text-White">Investissements</Link>
+            <Link to="/investments" className="text-size-1-3 text-center text-White">Investissements</Link>
         </li>
         <li className="is-flex is-justify-content-center marginB10 button-link-aside">
             <Link to="/quizz" className="text-size-1-3 text-center text-White">Quizz</Link>

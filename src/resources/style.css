@@ -343,6 +343,10 @@ tr:hover {
     max-width: 50%;
 }
 
+.width50 {
+    width: 50%;
+}
+
 .width80 {
     width: 80%;
 }
@@ -491,8 +495,13 @@ tr:hover {
     border-radius: 10px;
 }
 
-#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover{
+#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover {
     cursor: pointer; 
+}
+
+.img-action {
+    cursor: pointer; 
+    width: 27%;
 }
 
 

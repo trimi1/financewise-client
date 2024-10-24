@@ -7,22 +7,35 @@ function Goals() {
     const [handleUpdatedGoals, setUpdatedGoals] = useState([])
     const [handleDeletedGoals, setDeletedGoals] = useState([])
 
-    const handleEditionMode = (event) => {
+    function handleEditionMode(event) {
         event.preventDefault();
         setEditMode(!editMode)
     }
 
-    function handleDeletion(goal) {
-        // Vérifier si l'objectif est déjà sélectionné pour suppression
-        const isSelected = handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id);
+    function handleAddGoals() {
+        const newGoal = new GoalsDTO({
+            // Pour la db faire gaffe à l'id
+            id: handleAddedGoals.length + goalsList.length + 1,
+            name: "Nouvel Objectif",
+            montant: 0.0,
+            devise: "EUR",
+            deadline: new Date(),
+            recommendation: "Ajouter une recommandation"
+        });
 
-        if (isSelected) {
-            // Si l'objectif est déjà sélectionné, le désélectionner (le retirer de handleDeletedGoals)
-            setDeletedGoals(handleDeletedGoals.filter(deletedGoal => deletedGoal.id !== goal.id));
-        } else {
-            // Sinon, ajouter l'objectif à handleDeletedGoals
-            setDeletedGoals([...handleDeletedGoals, goal]);
-        }
+        // Ajout du nouvel objectif dans l'état
+        setAddedGoals([...handleAddedGoals, newGoal]);
+    }
+
+    function handleDeletion(goal) {
+        let isSelected = handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id);
+        isSelected ?  setDeletedGoals(handleDeletedGoals.filter(deletedGoal => deletedGoal.id !== goal.id)) : setDeletedGoals([...handleDeletedGoals, goal]);
+    }
+
+    function handleCancelChanges() {
+        setAddedGoals([])
+        setUpdatedGoals([])
+        setDeletedGoals([])
     }
 
     const getGoals = async () => {
@@ -78,7 +91,14 @@ function Goals() {
           deadline: new Date("2030-01-01"),
           recommendation: "Investir dans des actions à faible risque"
         })
-      ];
+    ];
+
+
+    const allGoals = [...goalsList, ...handleAddedGoals];
+
+    function isGoalSelectedForDeletion(goal, handleDeletedGoals) {
+        return handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id);
+    }
     
     return <section>
         <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center"> 
@@ -92,30 +112,32 @@ function Goals() {
                         <th>Objectif financier</th>
                         <th>Date limite</th>
                         <th>Devise</th>
-                        <th className={`text-center ${editMode ? "" : "width2 hidden"}`}>➕</th>
+                        <th id="action-column" className={`text-center ${editMode ? "" : "width2 hidden"}`}><img className="img-action" src="./src/icon/plus.png" onClick={handleAddGoals}/></th>
                     </tr>
                     </thead>
                     <tbody>
-                        {goalsList.map((goal, index) => (
+                        {allGoals.map((goal, index) => (
                             <tr key={index}>
                                 <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{goal.name}</td>
                                 <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{goal.montant}</td>
                                 <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{new Date(goal.deadline).toLocaleDateString()}</td>
                                 <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{goal.devise}</td>
-                                <td key={goal.id} className={`width2 text-center ${editMode ? "" : "hidden"} ${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? " border-bottom-red" : ""}`} onClick={() => handleDeletion(goal)}>❌</td>
+                                <td key={goal.id} className={`width2 text-center ${editMode ? "" : "hidden"} ${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? " border-bottom-red" : ""}`} onClick={() => handleDeletion(goal)}>
+                                    <img src={`./src/icon/${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id) ? "cancel.png" : "delete.png"}`} className="img-action"/>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
             </table>
             <div id="edit-confirm" className={`is-flex is-flex-direction-row is-justify-content-space-around width85 margin-5 ${editMode ? "" : "hidden"}`} >
-                <h2>
+                <h2 onClick={handleCancelChanges}>
                     Annuler les changements 🔄️
                 </h2>
                 <h2>
-                    Supprimer x catégories ❌
+                    {`Supprimer ${handleDeletedGoals.length} catégories ❌`}
                 </h2>
                 <h2>
-                    Valider x changemnts ✅
+                    {`Valider ${handleAddedGoals.length + handleUpdatedGoals.length} changemnts ✅`}
                 </h2>
             </div>
     </section>

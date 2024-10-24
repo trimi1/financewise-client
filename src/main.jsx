@@ -13,7 +13,11 @@ createRoot(document.getElementById('root')).render(
                 <Route path="/" element={<AuthPage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/depenses" element={<DepensesPage />} />
+                <Route path="/category" />
                 <Route path="/goals" element={<GoalsPage />} />
+                <Route path="/investments" />
+                <Route path="/quizz" />
+                <Route path="/information" />
             </Routes>
         </Router>
     </StrictMode>
