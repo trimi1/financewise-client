@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {GoalsDTO} from "../dto/goalsDTO.js";
+import GoalsDTO from "../dto/goalsDTO.js";
 
 function Goals() {
     const [editMode, setEditMode] = useState(false)
@@ -92,7 +92,6 @@ function Goals() {
           recommendation: "Investir dans des actions à faible risque"
         })
     ];
-
 
     const allGoals = [...goalsList, ...handleAddedGoals];
     

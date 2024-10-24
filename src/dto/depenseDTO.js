@@ -1,14 +1,14 @@
 import CategoryDTO from './categoryDTO.js';
-import {GoalsDTO} from "./goalsDTO.js";
+import GoalsDTO from "./goalsDTO.js";
 
 class DepenseDTO {
-    constructor(id, name, montant, devise, date, categorie, objectif) {
+    constructor({id = -1, name = "---", montant = 0.0, devise = "---", date = new Date(), categorie = new CategoryDTO(), objectif = new GoalsDTO()} = {}) {
         this.id = id;
         this.name = name;
         this.montant = montant;
         this.date = date;
         this.devise = devise;
-        this.categorie = new CategoryDTO(categorie.id, categorie.name, categorie.montantMax, categorie.devise);
+        this.categorie = new CategoryDTO(categorie);
         this.objectif = new GoalsDTO(objectif);
     }
 }

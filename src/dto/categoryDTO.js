@@ -1,5 +1,5 @@
 class CategoryDTO {
-    constructor(id, name, montantMax, devise) {
+    constructor({id = -1, name = "---", montantMax = 0, devise = "---"} = {}) {
         this.id = id;
         this.name = name;
         this.montantMax = montantMax;
