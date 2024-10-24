@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Objectif from "../dto/Objectif.js";
-import Categorie from "../dto/Categorie.js";
+import Goal from "../dto/Goal.js";
+import Category from "../dto/Category.js";
 import Depense from "../dto/Depense.js";
 
 function Depenses() {
@@ -22,8 +22,8 @@ function Depenses() {
             })
             .then(array => {
                 const depensesArray = array.map(depense => {
-                    let objectif = new Objectif(depense.objectif.id, depense.objectif.name, depense.objectif.devise, depense.objectif.montant, depense.objectif.deadline, depense.objectif.recommendation);
-                    let categorie = new Categorie(depense.categorie.id, depense.categorie.name, depense.categorie.montantMax, depense.categorie.devise);
+                    let objectif = new Goal(depense.objectif.id, depense.objectif.name, depense.objectif.devise, depense.objectif.montant, depense.objectif.deadline, depense.objectif.recommendation);
+                    let categorie = new Category(depense.categorie.id, depense.categorie.name, depense.categorie.montantMax, depense.categorie.devise);
                     return new Depense(depense.id, depense.name, depense.montant, depense.devise, depense.date, categorie, objectif);
                 });
                 console.log(depensesArray)

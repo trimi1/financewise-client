@@ -1,4 +1,4 @@
-class Categorie {
+class Category {
     constructor(id, name, montantMax, devise) {
         this.id = id;
         this.name = name;
@@ -7,4 +7,4 @@ class Categorie {
     }
 }
 
-export default Categorie;
+export default Category;

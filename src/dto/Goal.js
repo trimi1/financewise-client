@@ -1,4 +1,4 @@
-class Objectif {
+class Goal {
     constructor(id, name, devise, montant, deadline, recommandation) {
         this.id = id;
         this.name = name;
@@ -9,4 +9,4 @@ class Objectif {
     }
 }
 
-export default Objectif;
+export default Goal;
