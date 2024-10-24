@@ -93,7 +93,6 @@ function Goals() {
         })
     ];
 
-
     const allGoals = [...goalsList, ...handleAddedGoals];
     
     return <section>
