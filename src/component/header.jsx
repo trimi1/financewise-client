@@ -30,7 +30,7 @@ function Header() {
     <div id="name-project-link" className="is-flex is-align-items-center is-justify-content-center width12 colorBlue border-bottom-white">
         <Link to="/home" className="is-flex is-justify-content-center is-align-items-center text-size-1-3 text-White">Finance Wise</Link>
     </div>
-    <li className="is-flex is-justify-content-center is-align-items-center text-size-1-3"><a>{fullname || 'Chargement...'}</a></li>
+    <li className="is-flex is-justify-content-center is-align-items-center text-size-1-3 marginR1"><a>{fullname || 'Chargement...'}</a></li>
 </header>
 }
 

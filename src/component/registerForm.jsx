@@ -57,6 +57,7 @@ function RegisterForm() {
 
             const data = await response.json();
             localStorage.setItem("TOKEN", data.token);
+            localStorage.setItem("IDUSER", data.idUser)
             localStorage.setItem("EMAIL", email);
             navigate("/home");
         } catch (error) {
