@@ -19,11 +19,11 @@ function DepenseTable({ depenses, selectedCategory }) {
             <tbody>
             {filteredDepenses.map(depense => (
                 <tr key={depense.id}>
-                    <td>{depense.date}</td>
-                    <td>{depense.name}</td>
-                    <td>{depense.montant} {depense.devise}</td>
-                    <td>{depense.categorie.name}</td>
-                    <td>{depense.objectif.name}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.date}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.name}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.montant} {depense.devise}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.categorie.name}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.objectif.name}</td>
                 </tr>
             ))}
             </tbody>
