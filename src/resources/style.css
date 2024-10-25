@@ -165,6 +165,14 @@ tr:hover {
     color: red;
 }
 
+.text-blue {
+    color: #2D24D5;
+}
+
+.text-green {
+    color: #29BB75;
+}
+
 .text-center {
     text-align: center;
 }
@@ -191,6 +199,14 @@ tr:hover {
 
 .border-bottom-red {
     border-bottom: 2px solid red !important;
+}
+
+.border-bottom-blue {
+    border-bottom: 2px solid #2D24D5;
+}
+
+.border-bottom-green {
+    border-bottom: 2px solid #29BB75;
 }
 
 .borderBlack {

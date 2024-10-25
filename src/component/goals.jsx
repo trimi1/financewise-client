@@ -265,16 +265,16 @@ function Goals() {
                     <tbody>
                         {viewGoals.map((goal, index) => (
                             <tr key={index}>
-                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""}`}> 
+                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(goal.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(goal.id) ? " border-bottom-blue" : ""}`}> 
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="text" value={updatedGoals.find(g => g.id === goal.id)?.name || goal.name} onChange={(e) => handleInputChange(e, goal, 'name')}/>) : (goal.name)}
                                 </td>
-                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""}`}> 
+                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(goal.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(goal.id) ? " border-bottom-blue" : ""}`}> 
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="number" value={updatedGoals.find(g => g.id === goal.id)?.montant || goal.montant} onChange={(e) => handleInputChange(e, goal, 'montant')}/>) : (goal.montant)}
                                 </td>
-                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""}`}>
+                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(goal.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(goal.id) ? " border-bottom-blue" : ""}`}>
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="date" value={formatDate(goal).toISOString().substr(0, 10)} onChange={(e) => handleInputChange(e, goal, 'deadline')}/>) : (new Date(goal.deadline).toLocaleDateString() )}
                                 </td>
-                                <td className={`${deletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>
+                                <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(goal.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(goal.id) ? " border-bottom-blue" : ""}`}>
                                     {editMode && !hasBeenDeleted(goal.id) ? 
                                     ( 
                                         <select value={updatedGoals.find(g => g.id === goal.id)?.devise || goal.devise} onChange={(e) => handleInputChange(e, goal, 'devise')}>
@@ -282,7 +282,7 @@ function Goals() {
                                         </select>
                                     ) : (goal.devise)}
                                 </td>
-                                <td key={goal.id} className={`width2 text-center ${editMode ? "" : "hidden"} ${hasBeenDeleted(goal.id) && !hasBeenUpdated(goal.id) && !hasBeenAdded(goal.id) ? " border-bottom-red" : ""}`} onClick={() => handleCancelOrDelete(goal)}>
+                                <td key={goal.id} className={`width2 text-center ${editMode ? "" : "hidden"} ${hasBeenDeleted(goal.id) ? " border-bottom-red" : ""} ${hasBeenAdded(goal.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(goal.id) ? " border-bottom-blue" : ""}`} onClick={() => handleCancelOrDelete(goal)}>
                                     <img src={`./src/icon/${hasBeenDeleted(goal.id) || hasBeenUpdated(goal.id) || hasBeenAdded(goal.id) ? "cancel.png" : "delete.png"}`} className="img-action"/>
                                 </td>
                             </tr>
@@ -294,10 +294,10 @@ function Goals() {
                     Annuler les changements 🔄️
                 </h2>
                 <h2 onClick={handleDeleteConfirm}>
-                    {`Supprimer ${deletedGoals.length} catégories ❌`}
+                    {`Supprimer ${deletedGoals.length} objectifs ❌`}
                 </h2>
                 <h2 onClick={handelChangeConfirm}>
-                    {`Valider ${addedGoals.length + updatedGoals.length} changemnts ✅`}
+                    {`Valider ${addedGoals.length + updatedGoals.length} changements ✅`}
                 </h2>
             </div>
     </section>
