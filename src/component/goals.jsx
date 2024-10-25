@@ -241,6 +241,11 @@ function Goals() {
         });
     }
 
+    function formatDate(goal) {
+        const deadlineDate = updatedGoals.find(g => g.id === goal.id)?.deadline || goal.deadline;
+        return new Date(new Date(deadlineDate).getTime() - new Date(deadlineDate).getTimezoneOffset() * 60000);
+    }
+
     return <section>
         <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center"> 
             <h2 id="id-edition" className={`text-end marginR1 ${editMode ? "text-orange" : ""}`} onClick={handleEditionMode}>Mode édition</h2>
@@ -266,7 +271,7 @@ function Goals() {
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="number" value={updatedGoals.find(g => g.id === goal.id)?.montant || goal.montant} onChange={(e) => handleInputChange(e, goal, 'montant')}/>) : (goal.montant)}
                                 </td>
                                 <td className={`${hasBeenDeleted(goal.id) ? "border-bottom-red text-red" : ""}`}>
-                                    {editMode && !hasBeenDeleted(goal.id) ? (<input type="date" value={new Date(updatedGoals.find(g => g.id === goal.id)?.deadline || goal.deadline).toISOString().substr(0, 10)} onChange={(e) => handleInputChange(e, goal, 'deadline')}/>) : (new Date(goal.deadline).toLocaleDateString() )}
+                                    {editMode && !hasBeenDeleted(goal.id) ? (<input type="date" value={formatDate(goal).toISOString().substr(0, 10)} onChange={(e) => handleInputChange(e, goal, 'deadline')}/>) : (new Date(goal.deadline).toLocaleDateString() )}
                                 </td>
                                 <td className={`${deletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>
                                     {editMode && !hasBeenDeleted(goal.id) ? 
