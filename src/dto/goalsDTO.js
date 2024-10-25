@@ -7,6 +7,29 @@ class GoalsDTO {
         this.deadline = deadline;
         this.recommendation = recommendation;
     }
+
+    setProperty(property, value) {
+        switch (property) {
+            case 'name':
+                this[property] = value;
+                break;
+            case 'montant':
+                this[property] = Number(value);
+                break;
+            case 'devise':
+                this[property] = value;
+                break;
+            case 'recommendation':
+                this[property] = value;
+                break;
+                break;
+            case 'deadline':
+                this[property] = new Date(value);
+                break;
+            default:
+                console.error(`Propriété non reconnue : ${property}`);
+        }
+    }
 }
 
 export default GoalsDTO
