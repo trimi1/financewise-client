@@ -117,6 +117,7 @@ function Goals() {
         setAddedGoals([])
         setUpdatedGoals([])
         setDeletedGoals([])
+        setViewGoals(deafaultGoals)
     }
 
     // Allow to create a new goal and update the state of the added goals list and view.

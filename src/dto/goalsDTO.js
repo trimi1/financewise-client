@@ -22,7 +22,6 @@ class GoalsDTO {
             case 'recommendation':
                 this[property] = value;
                 break;
-                break;
             case 'deadline':
                 this[property] = new Date(value);
                 break;
