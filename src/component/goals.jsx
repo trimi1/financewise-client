@@ -141,7 +141,8 @@ function Goals() {
 
         setIdCreation(idCreation-1);
     }
-
+    // This function allows for the cancellation of a single add, update, or delete action. 
+    // In the case of deletion, it permits adding a goal to the deletedGoals list or canceling the deletion by deselecting the goal.
     function handleCancelOrDelete(goal) {
         if(hasBeenAdded(goal.id)) {
             let index = addedGoals.findIndex(g => g.id === goal.id);
@@ -160,14 +161,16 @@ function Goals() {
         
         hasBeenDeleted(goal.id) ? setDeletedGoals(deletedGoals.filter(deletedGoal => deletedGoal.id !== goal.id)) : setDeletedGoals([...deletedGoals, goal]);
     }
-
+    // This function resets all components to an empty state and refreshes the view with default values, which are retrieved from the database.
     function handleCancelChanges() {
         setAddedGoals([])
         setUpdatedGoals([])
         setDeletedGoals([])
         setViewGoals([...deafaultGoals])
     }
-
+    // This function sets the IDs of all newly added goals to -1 to indicate they need to be created,
+    // while keeping the IDs of updated goals unchanged. It then sends a request to update the database,
+    // followed by a synchronization request to refresh all components with the latest database values.
     function handelChangeConfirm() {
         let addGoalsConfirm = [...addedGoals];
         addGoalsConfirm.forEach(g => g.id = -1);
@@ -190,8 +193,8 @@ function Goals() {
             console.log("Ajout confirmé !");
             setAddedGoals([]);
             setUpdatedGoals([])
-    
-            // Une fois l'ajout confirmé, on recharge la liste des objectifs
+            // Sends a new GET request to synchronize all components with the latest values from the database.
+            // Updates all necessary components based on the response.
             return fetch(`http://localhost:8080/financewise/goals/users/${localStorage.getItem("IDUSER")}`, {
                 method: 'GET',
                 headers: { 
@@ -214,10 +217,9 @@ function Goals() {
             console.error('Erreur :', error.message);
         });
     }
-
+    // This function sends a request to the FinanceWise API to delete goals, then updates and refreshes the components.
     function handleDeleteConfirm() {
         let deletedGoalsConfirm = [...deletedGoals]
-         
         fetch(`http://localhost:8080/financewise/goals/users/${localStorage.getItem("IDUSER")}`,
         {
             method: 'DELETE',
@@ -235,12 +237,11 @@ function Goals() {
             setDefaultGoals(remainingGoals)
             setViewGoals(remainingGoals)
             setDeletedGoals([])
-
         }).catch((error) => {
             console.log(error.message)
         });
     }
-
+    // This function patches the date to match the user's current time zone.
     function formatDate(goal) {
         const deadlineDate = updatedGoals.find(g => g.id === goal.id)?.deadline || goal.deadline;
         return new Date(new Date(deadlineDate).getTime() - new Date(deadlineDate).getTimezoneOffset() * 60000);
