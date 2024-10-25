@@ -271,6 +271,10 @@ tr:hover {
     flex-direction: row;
 }
 
+.marginL1 {
+    margin-left: 1%;
+}
+
 .marginL5 {
     margin-left: 5%;
 }
@@ -515,7 +519,7 @@ tr:hover {
     border-radius: 10px;
 }
 
-#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover {
+#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover, #img-graph-dep:hover {
     cursor: pointer; 
 }
 
