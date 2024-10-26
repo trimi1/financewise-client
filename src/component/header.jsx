@@ -17,16 +17,16 @@ function Header() {
           }).then(data => {
             setFullName(data.firstName + ' ' + data.lastName)
         }).catch(error => {
-            
-          });
+            console.log(error.message)
+        });
     }
 
     useEffect(() => {
         getFullName()
     }, []);
 
-    return <header className="is-flex is-flex-direction-row is-justify-content-space-between heightVM5 color-light-grey">
-    <div id="name-project-link" className="is-flex is-align-items-center is-justify-content-center width12 colorBlue border-bottom-white">
+    return <header className="is-justify-content-space-between">
+    <div id="name-project-link" className="is-flex is-align-items-center is-justify-content-center colorBlue">
         <Link to="/home" className="is-flex is-justify-content-center is-align-items-center text-size-1-3 text-White">Finance Wise</Link>
     </div>
     <li className="is-flex is-justify-content-center is-align-items-center text-size-1-3 marginR1"><a>{fullname || 'Chargement...'}</a></li>

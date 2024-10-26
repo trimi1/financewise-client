@@ -68,7 +68,7 @@ function LoginForm() {
         login(email, password);
     };
 
-    return ( <form className="centerColumn" onSubmit={handleSubmition}>
+    return ( <form onSubmit={handleSubmition}>
                 <h2 id="error-Text-login">{report}</h2>
                 <label className="text-White marginB3">
                     Email

@@ -2,23 +2,107 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 header {
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    height: 10vh;
+    border-bottom: 2px solid white;
+    background-color: #D9D9D9;
+}
+
+header div {
+    width: 50%;
+}
+
+header h2 {
+    height: 100%;
 }
 
 main {
     display: flex;
-    height: 100vh;
+    flex-direction: row;
+    height: 90vh;
     width: 100%;
+}
+
+#main-2-div-only {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+}
+
+aside {
+    width: 12%;
+    flex-direction: column;
+}
+
+aside h2 {
+    font-size: 1.5em;
+    padding-bottom: 10%;
+    width: 95%;
+}
+
+aside ul {
+    display: flex;
+    flex-direction: column;
+}
+
+aside ul li {
+    max-width: 95%;
+}
+
+.button-link-aside {
+    border: 2px solid white; /* Bordure blanche avec une légère transparence */
+    border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
+    padding: 5px 0.3em;         /* Espacement intérieur pour le texte */
+    font-family: Arial, sans-serif; /* Police classique */
+    font-size: 1.3em;        /* Taille du texte */
+    cursor: pointer;            /* Curseur en forme de main */
+    outline: none;              /* Retire le contour par défaut au focus */
+    transition: background-color 0.3s ease; /* Transition pour les effets */
+    margin-bottom: 10%;
+    text-align: center;
 }
 
 section {
     width: 88%;
 }
 
+article {
+    height: 70%;
+    margin: 5%;
+}
+
+article h2, article h3 {
+    margin: 1% 5% 1% 5%;
+}
+
+
+.centerColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 95%;
+}
 
 form {
     display: flex;
@@ -32,6 +116,18 @@ form label {
     width: 80%;
     font-size: 1.5em;
 }
+
+#tow-label-one-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+}
+
+#tow-label-one-row label {
+    max-width: 50%;
+}
+
 
 form div {
     margin: 0%;
@@ -49,7 +145,6 @@ input::placeholder {
     color: black;
     opacity: 1;
 }
-
 
 li {
     list-style: none;
@@ -69,6 +164,11 @@ img {
     height : 2%;
 }
 
+#container-table {
+    min-width: 100%;
+    max-height: 65%;
+    overflow-y: auto; 
+}
 
 table {
     width: 85%;
@@ -76,6 +176,12 @@ table {
     font-size: 1.2em;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+thead {
+    top: 0;
+    z-index: 10;  
+    position: sticky;    
 }
 
 th, td {
@@ -123,6 +229,10 @@ tr:hover {
 
 .is-justify-content-space-between {
     justify-content: space-between;
+}
+
+.is-justify-content-start {
+    justify-content: start;
 }
 
 .is-justify-content-center {
@@ -258,12 +368,13 @@ tr:hover {
     width: 100%;
 }
 
-.container-grid-2E-2L {
+#container-grid-2E-2L {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
     grid-template-rows: repeat(2, auto);  /* 2 lignes */
     gap: 10px; /* Espace entre les articles */
     align-items: center;
+    height: 80%;
   }
 
 .flexRow {
@@ -319,6 +430,14 @@ tr:hover {
     padding-top: 10%;
 }
 
+.padding-R5 {
+    padding-right: 5%;
+}
+
+.padding-L5 {
+    padding-left: 5%;
+}
+
 .rounded10 {
     border-radius: 10%;
 }
@@ -363,8 +482,8 @@ tr:hover {
     width: 40%;
 }
 
-.maxWidth50 {
-    max-width: 50%;
+.width50 {
+    width: 50%;
 }
 
 .width50 {
@@ -442,17 +561,6 @@ tr:hover {
     transition: background-color 0.3s ease; /* Transition pour les effets */
 }
 
-.button-link-aside {
-    border: 2px solid white; /* Bordure blanche avec une légère transparence */
-    border-radius: 20px;        /* Coins arrondis pour l'effet ovale */
-    padding: 5px 10px;         /* Espacement intérieur pour le texte */
-    font-family: Arial, sans-serif; /* Police classique */
-    font-size: 16px;            /* Taille du texte */
-    cursor: pointer;            /* Curseur en forme de main */
-    outline: none;              /* Retire le contour par défaut au focus */
-    transition: background-color 0.3s ease; /* Transition pour les effets */
-}
-
 .btnBlue:hover, .button-link-aside:hover {
     background-color: black;  /* Couleur plus foncée au survol */
 }
@@ -486,15 +594,6 @@ tr:hover {
     background-color: #3249B7;  /* Couleur encore plus foncée au clic */
 }
 
-.centerColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
 .error-text {
     color: #FF4C4C;
     background-color: white;
@@ -519,7 +618,17 @@ tr:hover {
     border-radius: 10px;
 }
 
-#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover, #img-graph-dep:hover {
+#name-project-link {
+    width: 12%;
+}
+
+aside h2:hover {
+    border-bottom: 2px solid #29BB75;
+}
+
+#name-project-link:hover, #id-edition:hover, #id-edition-icon:hover,
+#edit-confirm h2:hover, #img-add:hover, #img-graph-dep:hover,
+aside h2:hover {
     cursor: pointer; 
 }
 
@@ -529,13 +638,17 @@ tr:hover {
 }
 
 
-@media only screen and (max-width : 1400px) and (min-width : 781px)  {
+@media only screen and (max-width : 1400px)  {
     aside {
-        width: 15% !important;
+        width: 15%;
+    }
+
+    aside h2 {
+        font-size: 1.1em;
     }
 
     section {
-        width: 85% !important;
+        width: 85%;
     }
 
     ul {
@@ -543,7 +656,13 @@ tr:hover {
     }
 
     #name-project-link {
-        width: 15% !important;
+        width: 15%;
+    }
+}
+
+@media only screen and (max-width : 1180px) {
+    .button-link-aside {
+        font-size: 0.9em;
     }
 }
 
@@ -555,34 +674,105 @@ tr:hover {
 
     header {
         width: 100% !important;
-        height: 10% !important;
+        height: 10vh;
+        background-color: #4B6ADB;
+        color: white;
     }
 
-    header div {
+    #name-project-link {
+        width: 25%;
+    }
+
+    header div a {
         width: 100% !important;
-    }
-
-    aside {
-        width: 100% !important;
-        height: 10% !important;
-    }
-
-    aside ul h2 {
-        font-size: 1em !important;
-        text-align: center;
+        background-color: #4B6ADB;
+        border: none;
     }
 
     main {
         display: flex;
         flex-direction: column !important;
+        max-height: 90vh;
     }
 
-    .maxWidth50 {
-        max-width: 100%;
+    #main-2-div-only {
+        width: 100%;
     }
 
-    form {
-        margin-bottom: 5%;
+    aside {
+        width: 100% !important;
+        max-height: 25vh;
+        padding-top: 0.2em;
+        padding-bottom: 0.4em;
+    }
+
+    aside h2 {
+        max-height: 5vh;
+        font-size: 1em;
+        padding: 0.1em;
+        margin: 0.3em;
+        text-align: center;
+    }
+
+
+    aside ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2em;
+        justify-content: space-around;
+        width: 99%;
+        max-height: 100%;
+        flex-direction: row;
+        margin: 0%;
+        overflow-y: auto; 
+    }
+
+    aside ul li {
+        flex: 1 1 20%;
+        max-width: 30%;
+        max-height: 80%;
+        align-items: center;
+    }
+
+    .button-link-aside {
+        border: 2px solid white; /* Bordure blanche avec une légère transparence */
+        border-radius: 1em;        /* Coins arrondis pour l'effet ovale */
+        padding: 0.4em;         /* Espacement intérieur pour le texte */
+        margin: 0.2em;
+        font-family: Arial, sans-serif; /* Police classique */
+        font-size: 0.9em;            /* Taille du texte */
+        cursor: pointer;            /* Curseur en forme de main */
+        outline: none;              /* Retire le contour par défaut au focus */
+        transition: background-color 0.3s ease; /* Transition pour les effets */
+    }
+
+    section {
+        width: 100%;
+        max-height: 65vh;
+    }
+
+    article {
+        height: 100%;
+        padding-bottom: 0.3em;
+    }
+
+    article h2 {
+        font-size: 1.2em;
+        margin: 0.2em 0em 0.3em 0.2em;
+    }
+
+    article h3 {
+        font-size: 1em;
+        margin: 0.2em 0em 0.3em 0.5em;
+    }
+
+    #container-grid-2E-2L {
+        max-height: 90%;
+        overflow-y: auto; 
+    }
+
+    #tow-label-one-row {
+        width: 90%;
     }
 
     form label {

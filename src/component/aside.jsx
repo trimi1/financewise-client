@@ -1,30 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 function Aside() {
-    return  <aside className="is-flex is-justify-content-center is-align-items-center width12 colorBlue">
-    <ul className="is-flex is-flex-direction-column padding-0 width90" >
-        <h2 className="text-size-1-5 text-White border-bottom-white padding-B10 text-center">Menu principal</h2>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/depenses" className="text-size-1-3 text-center text-White">Mes dépenses</Link>
+    const [isHidden, setIsHidden] = useState(false);
+
+    return  <aside className="is-flex is-justify-content-center is-align-items-center colorBlue">
+         <h2 className="text-White border-bottom-white text-center" onClick={() => setIsHidden(!isHidden)}>Menu principal</h2>
+    <ul className="is-flex padding-0" style={{ display: isHidden ? "none" : "" }} >
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/depenses" className="text-White">Mes dépenses</Link>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <a href="/category" className="text-size-1-3 text-center text-White">Mes catégories</a>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <a href="/category" className="text-White">Mes catégories</a>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/goals" className="text-size-1-3 text-center text-White">Mes objectifs</Link>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/goals" className="text-White">Mes objectifs</Link>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/advice" className="text-size-1-3 text-center text-White">Conseils - chat</Link>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/advice" className="text-White">Conseils - chat</Link>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/investments" className="text-size-1-3 text-center text-White">Investissements</Link>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/investments" className="text-White">Investissements</Link>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/quizz" className="text-size-1-3 text-center text-White">Quizz</Link>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/quizz" className="text-White">Quizz</Link>
         </li>
-        <li className="is-flex is-justify-content-center marginB10 button-link-aside">
-            <Link to="/information" className="text-size-1-3 text-center text-White">Informations</Link>
+        <li className="is-flex is-justify-content-center button-link-aside">
+            <Link to="/information" className="text-White">Informations</Link>
         </li>
     </ul>
 </aside>
