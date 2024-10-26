@@ -87,6 +87,10 @@ td {
     width: 5%;
 }
 
+td input {
+    width: 100%;
+}
+  
 th {
     background-color: #f4f4f4;
     font-weight: bold;
@@ -161,6 +165,14 @@ tr:hover {
     color: red;
 }
 
+.text-blue {
+    color: #2D24D5;
+}
+
+.text-green {
+    color: #29BB75;
+}
+
 .text-center {
     text-align: center;
 }
@@ -187,6 +199,14 @@ tr:hover {
 
 .border-bottom-red {
     border-bottom: 2px solid red !important;
+}
+
+.border-bottom-blue {
+    border-bottom: 2px solid #2D24D5;
+}
+
+.border-bottom-green {
+    border-bottom: 2px solid #29BB75;
 }
 
 .borderBlack {
@@ -249,6 +269,10 @@ tr:hover {
 .flexRow {
     display: flex;
     flex-direction: row;
+}
+
+.marginL1 {
+    margin-left: 1%;
 }
 
 .marginL5 {
@@ -495,8 +519,8 @@ tr:hover {
     border-radius: 10px;
 }
 
-#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover {
-    cursor: pointer;
+#id-edition:hover, #id-edition-icon:hover, #edit-confirm h2:hover, #img-add:hover, #img-graph-dep:hover {
+    cursor: pointer; 
 }
 
 .img-action {

@@ -219,13 +219,19 @@ function Depenses() {
 
     return (
         <section>
-            <div className="is-flex is-flex-direction-row is-justify-content-end">
+            <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center">
+                <h2 id="id-edition" className={`text-end marginR1 ${editMode ? "text-orange" : ""}`}
+                    onClick={handleEditionMode}>Mode édition</h2>
+                <img id="id-edition-icon" src="./src/icon/edition.png" className="marginR5"
+                     onClick={handleEditionMode}></img>
+            </div>
+            <div className="is-flex is-flex-direction-row is-justify-content-start marginL5">
                 <label htmlFor="categorySelect">Filtrer par catégorie :</label>
                 <select
                     id="categorySelect"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="margin-left"
+                    className="marginL1"
                 >
                     <option value="">Toutes les catégories</option>
                     {categories.map(category => (
@@ -235,17 +241,12 @@ function Depenses() {
                     ))}
                 </select>
                 <img
+                    id="img-graph-dep"
                     src={chartImage}
                     alt="Mode graphique"
                     onClick={handleImageClick}
-                    style={{cursor: 'pointer', marginLeft: '10px'}}
+                    className="marginL1"
                 />
-            </div>
-            <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center">
-                <h2 id="id-edition" className={`text-end marginR1 ${editMode ? "text-orange" : ""}`}
-                    onClick={handleEditionMode}>Mode édition</h2>
-                <img id="id-edition-icon" src="./src/icon/edition.png" className="marginR5"
-                     onClick={handleEditionMode}></img>
             </div>
             {!showChart ? (
                 <table className="margin-5">
