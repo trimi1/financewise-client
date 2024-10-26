@@ -6,9 +6,9 @@ import GoalsDTO from "../dto/goalsDTO.js";
 
 function Depenses() {
     const [depenses, setDepenses] = useState([]);
-    const [copyDepenses, setCopyDepenses] = useState([]);
+    const [filtredView, setFiltredView] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [showChart, setShowChart] = useState(false);
     const [chartImage, setChartImage] = useState("./src/icon/graphic.png");
 
@@ -25,11 +25,27 @@ function Depenses() {
     }
 
     function hasBeenUpdated(id) {
-        return addedDepense.some(updatedDepense => addedDepense.id === id);
+        return updatedDepense.some(updatedDepense => updatedDepense.id === id);
     }
 
     function hasBeenDeleted(id) {
-        return addedDepense.some(deletedDepense => addedDepense.id === id);
+        return deletedDepense.some(deletedDepense => deletedDepense.id === id);
+    }
+
+    useEffect(() => {
+        console.log("SYNCHONISE");
+    });
+
+    function changeCategory(event) {
+        const newCategory = event.target.value;
+        setSelectedCategory(newCategory);
+        let filtredAdded = newCategory === "" ? addedDepense : addedDepense.filter(depense => depense.categorie.name === newCategory);
+        let filtedUpdated = newCategory === "" ? updatedDepense : updatedDepense.filter(depense => depense.categorie.name === newCategory);
+        let filtredDeleted = newCategory === "" ? deletedDepense : deletedDepense.filter(depense => depense.categorie.name === newCategory);
+        let depensesFiltred = newCategory === "" ? depenses : depenses.filter(depense => depense.categorie.name === newCategory);
+        depensesFiltred = depensesFiltred.filter(depense => !filtedUpdated.some(depenseFiltred => depenseFiltred.id === depense.id))
+        depensesFiltred = depensesFiltred.filter(depense => !filtredDeleted.some(depenseFiltred => depenseFiltred.id === depense.id))
+        setFiltredView([...depensesFiltred, ...filtredAdded, ...filtedUpdated, ...filtredDeleted]);
     }
 
     function handleInputChanges(event, depense, field) {
@@ -41,7 +57,9 @@ function Depenses() {
             if(hasBeenUpdated(depense.id)) {
                 let index = updatedDepense.findIndex(d => d.id === depense.id);
                 setUpdatedDepense(updatedDepense.filter((_, i) => i !== index));
-                setCopyDepenses([...depenses]);
+                index = filtredView.findIndex(d => d.id === depense.id);
+                let defaultDepense = depenses.find(d => d.id === depense.id);
+                setFiltredView([...filtredView.slice(0, index), defaultDepense, ...filtredView.slice(index+1)])
             }
         } else {
             if(hasBeenAdded(depense.id)) {
@@ -49,18 +67,18 @@ function Depenses() {
                 let updateDepense = addedDepense[index];
                 updateDepense.setProperty(field, event.target.value)
                 setAddedDepense([...addedDepense.slice(0, index), updateDepense, ...addedDepense.slice(index+1)]);
-                index = copyDepenses.findIndex(d => d.id === updateDepense.id)
-                setCopyDepenses([...copyDepenses.slice(0, index), updateDepense, ...copyDepenses.slice(index+1)]);
+                index = filtredView.findIndex(d => d.id === updateDepense.id)
+                setFiltredView([...filtredView.slice(0, index), updateDepense, ...filtredView.slice(index+1)]);
             } else {
                 let index = updatedDepense.findIndex(d => d.id === depense.id);
                 let updateDepense = hasBeenUpdated(depense.id) ? updatedDepense[index] : new DepenseDTO(depense);
                 updateDepense.setProperty(field, event.target.value)
-                hasBeenUpdated(depense.id) ? setUpdatedDepense([updatedDepense.slice(0, index), updateDepense, [updatedDepense.slice(index+1)]])
+                hasBeenUpdated(depense.id) ? setUpdatedDepense([...updatedDepense.slice(0, index), updateDepense, ...updatedDepense.slice(index+1)])
                     : setUpdatedDepense(prevUpdate => {
                         return [...prevUpdate, updateDepense]
                     });
-                let indexDepense = copyDepenses.findIndex(d => d.id === updateDepense.id);
-                setCopyDepenses([...copyDepenses.slice(0, indexDepense), updateDepense, ...copyDepenses.slice(indexDepense+1)]);
+                let indexDepense = filtredView.findIndex(d => d.id === updateDepense.id);
+                setFiltredView([...filtredView.slice(0, indexDepense), updateDepense, ...filtredView.slice(indexDepense+1)]);
             }
         }
     }
@@ -72,7 +90,7 @@ function Depenses() {
         setAddedDepense([])
         setUpdatedDepense([])
         setDeletedDepense([])
-        setCopyDepenses(depenses)
+        setFiltredView(depenses)
     }
 
     function handleAddDepense() {
@@ -86,7 +104,7 @@ function Depenses() {
 
         setAddedDepense((prevAddDepense) => {
             const newAddedDepense = [...prevAddDepense, newDepense];
-            setCopyDepenses((prevAddDepense) => [...prevAddDepense, newAddedDepense]);
+            setFiltredView((prevAddDepense) => [...prevAddDepense, newDepense]);
             return newAddedDepense;
         });
 
@@ -98,14 +116,14 @@ function Depenses() {
             let index = addedDepense.findIndex(d => d.id === depense.id);
             const updateAddedDepense = addedDepense.filter((_, i) => i !== index);
             setAddedDepense(updateAddedDepense);
-            setCopyDepenses([...depenses, ...updateAddedDepense]);
+            setFiltredView([...depenses, ...updateAddedDepense]);
             return;
         }
 
         if(hasBeenUpdated(depense.id)) {
             let index = updatedDepense.findIndex(d => d.id === depense.id);
             setUpdatedDepense(updatedDepense.filter((_, i) => i !== index));
-            setCopyDepenses([...copyDepenses])
+            setFiltredView([...filtredView])
             return;
         }
 
@@ -116,13 +134,13 @@ function Depenses() {
         setAddedDepense([])
         setUpdatedDepense([])
         setDeletedDepense([])
-        setCopyDepenses([...depenses])
+        setFiltredView([...depenses])
     }
 
 
 
     useEffect(() => {
-        fetch(`http://localhost:8080/financewise/category/users/${localStorage.getItem("IDUSER")}`, {
+        fetch(`http://localhost:8080/financewise/categories/users/${localStorage.getItem("IDUSER")}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -197,7 +215,7 @@ function Depenses() {
             .then(array => {
                 const depensesArray = array.map(depense => new DepenseDTO(depense));
                 setDepenses(depensesArray);
-                setCopyDepenses(depensesArray)
+                setFiltredView(depensesArray)
             });
     }, []);
 
@@ -207,15 +225,10 @@ function Depenses() {
         setChartImage(showChart ? "./src/icon/graphic.png" : "./src/icon/liste.png");
     };
 
-    const filteredDepenses = selectedCategory
-        ? copyDepenses.filter(depense => depense.categorie.name === selectedCategory)
-        : copyDepenses;
-
     function formatDate(depense) {
         const date = updatedDepense.find(g => g.id === depense.id)?.date || depense.date
         return new Date(new Date(date).getTime() - new Date(date).getTimezoneOffset() * 60000)
     }
-
 
     return (
         <section>
@@ -230,7 +243,7 @@ function Depenses() {
                 <select
                     id="categorySelect"
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    onChange={(e) => changeCategory(e)}
                     className="marginL1"
                 >
                     <option value="">Toutes les catégories</option>
@@ -264,7 +277,7 @@ function Depenses() {
                     </tr>
                     </thead>
                     <tbody>
-                    {filteredDepenses.map((depense, index) => (
+                    {filtredView.map((depense, index) => (
                         <tr key={index}>
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? "border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? "border-bottom-blue" : ""}`}>
                                 {editMode && !hasBeenDeleted(depense.id) ? (
@@ -330,7 +343,7 @@ function Depenses() {
                     </tbody>
                 </table>
             ) : (
-                <DepenseChart categories={categories} depenses={copyDepenses}/>
+                <DepenseChart categories={categories} depenses={filtredView}/>
             )}
             <div id="edit-confirm"
                  className={`is-flex is-flex-direction-row is-justify-content-space-around width85 margin-5 ${editMode ? "" : "hidden"}`}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GoalsDTO from "../dto/goalsDTO.js";
+import Depenses from './depenses.jsx';
 
 function Goals() {
     const [idCreation, setIdCreation] = useState(-1)
@@ -78,7 +79,9 @@ function Goals() {
                 // We remove the goal from the list of updated goals and refresh the view.
                 let index = updatedGoals.findIndex(g => g.id === goal.id);
                 setUpdatedGoals(updatedGoals.filter((_, i) => i !== index));
-                setViewGoals([...deafaultGoals])
+                index = viewGoals.findIndex(g => g.id === goal.id);
+                let defaultGoal = deafaultGoals.find(g => g.id === goal.id);
+                setViewGoals([...viewGoals.slice(0, index), defaultGoal, ...viewGoals.slice(index+1)])
             }
         } else {
             // Step three: In case of an update, there are two possibilities to check.
