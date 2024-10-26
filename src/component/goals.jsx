@@ -5,7 +5,7 @@ import Depenses from './depenses.jsx';
 function Goals() {
     const [idCreation, setIdCreation] = useState(-1)
     const [editMode, setEditMode] = useState(false)
-    const [deafaultGoals, setDefaultGoals] = useState([])
+    const [defaultGoals, setDefaultGoals] = useState([])
     const [viewGoals, setViewGoals] = useState([])
     const [addedGoals, setAddedGoals] = useState([])
     const [updatedGoals, setUpdatedGoals] = useState([])
@@ -16,7 +16,7 @@ function Goals() {
     function hasBeenAdded(id) {
         return addedGoals.some(addedGoal => addedGoal.id === id);
     }
-    // Return true or false if the goal (id) is in uupdatedGoals.
+    // Return true or false if the goal (id) is in updatedGoals.
     function hasBeenUpdated(id) {
         return updatedGoals.some(updatedGoal => updatedGoal.id === id);
     }
@@ -25,7 +25,7 @@ function Goals() {
         return deletedGoals.some(deletedGoal => deletedGoal.id === id);
     }
 
-    // Load all currency and update state of currency at the first load of the component.
+    // Load all currencies and update state of currency at the first load of the component.
     useEffect(() => {
         const fetchDevises = async () => {
             try {
@@ -73,14 +73,14 @@ function Goals() {
         goalCompare.setProperty(field, event.target.value);
 
         // Step two: If the goal being updated is equal to the default one, the update of the goal is over. If not go to step 3.
-        let isEqual = deafaultGoals.some(g => JSON.stringify(g) === JSON.stringify(goalCompare));
+        let isEqual = defaultGoals.some(g => JSON.stringify(g) === JSON.stringify(goalCompare));
         if(isEqual) {
             if(hasBeenUpdated(goal.id)) {
                 // We remove the goal from the list of updated goals and refresh the view.
                 let index = updatedGoals.findIndex(g => g.id === goal.id);
                 setUpdatedGoals(updatedGoals.filter((_, i) => i !== index));
                 index = viewGoals.findIndex(g => g.id === goal.id);
-                let defaultGoal = deafaultGoals.find(g => g.id === goal.id);
+                let defaultGoal = defaultGoals.find(g => g.id === goal.id);
                 setViewGoals([...viewGoals.slice(0, index), defaultGoal, ...viewGoals.slice(index+1)])
             }
         } else {
@@ -120,7 +120,7 @@ function Goals() {
         setAddedGoals([])
         setUpdatedGoals([])
         setDeletedGoals([])
-        setViewGoals(deafaultGoals)
+        setViewGoals(defaultGoals)
     }
 
     // Allow to create a new goal and update the state of the added goals list and view.
@@ -151,14 +151,14 @@ function Goals() {
             let index = addedGoals.findIndex(g => g.id === goal.id);
             const updatedAddedGoals = addedGoals.filter((_, i) => i !== index);
             setAddedGoals(updatedAddedGoals);
-            setViewGoals([...deafaultGoals, ...updatedAddedGoals]);
+            setViewGoals([...defaultGoals, ...updatedAddedGoals]);
             return;
         }
 
         if(hasBeenUpdated(goal.id)) {
             let index = updatedGoals.findIndex(g => g.id === goal.id);
             setUpdatedGoals(updatedGoals.filter((_, i) => i !== index));
-            setViewGoals([...deafaultGoals])
+            setViewGoals([...defaultGoals])
             return;
         }
         
@@ -169,7 +169,7 @@ function Goals() {
         setAddedGoals([])
         setUpdatedGoals([])
         setDeletedGoals([])
-        setViewGoals([...deafaultGoals])
+        setViewGoals([...defaultGoals])
     }
     // This function sets the IDs of all newly added goals to -1 to indicate they need to be created,
     // while keeping the IDs of updated goals unchanged. It then sends a request to update the database,
@@ -236,7 +236,7 @@ function Goals() {
                 throw new Error('Erreur HTTP POST : ' + response.status + ' Message : ' + response.message);
             }
             console.log("Goals Supprimer !")
-            let remainingGoals = deafaultGoals.filter(element => !deletedGoals.includes(element));
+            let remainingGoals = defaultGoals.filter(element => !deletedGoals.includes(element));
             setDefaultGoals(remainingGoals)
             setViewGoals(remainingGoals)
             setDeletedGoals([])
