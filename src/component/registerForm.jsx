@@ -74,9 +74,9 @@ function RegisterForm() {
         register(firstName, lastName, email, password);
     };
 
-    return (<form className="centerColumn" onSubmit={handleSubmition}>
+    return (<form onSubmit={handleSubmition}>
                 <h2 id="error-Text-register">{report}</h2>
-                <div className="flexRow width80">
+                <div id="tow-label-one-row">   
                     <label className="marginR5">
                         Nom
                         <input

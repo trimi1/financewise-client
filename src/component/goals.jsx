@@ -255,6 +255,7 @@ function Goals() {
             <h2 id="id-edition" className={`text-end marginR1 ${editMode ? "text-orange" : ""}`} onClick={handleEditionMode}>Mode édition</h2>
             <img id="id-edition-icon" src="./src/icon/edition.png" className="marginR5" onClick={handleEditionMode}></img>
         </div>
+        <div id="container-table">
         <table className="margin-5">
                     <thead>
                     <tr>
@@ -292,6 +293,7 @@ function Goals() {
                         ))}
                     </tbody>
             </table>
+            </div>
             <div id="edit-confirm" className={`is-flex is-flex-direction-row is-justify-content-space-around width85 margin-5 ${editMode ? "" : "hidden"}`} >
                 <h2 onClick={handleCancelChanges}>
                     Annuler les changements 🔄️
