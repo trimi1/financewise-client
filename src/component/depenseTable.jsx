@@ -12,6 +12,7 @@ function DepenseTable({ depenses, selectedCategory }) {
                 <th>Date</th>
                 <th>Nom</th>
                 <th>Montant</th>
+                <th>Devise</th>
                 <th>Catégorie</th>
                 <th>Objectif</th>
             </tr>
@@ -21,7 +22,8 @@ function DepenseTable({ depenses, selectedCategory }) {
                 <tr key={depense.id}>
                     <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.date}</td>
                     <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.name}</td>
-                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.montant} {depense.devise}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.montant}</td>
+                    <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.devise}</td>
                     <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.categorie.name}</td>
                     <td className={`${handleDeletedGoals.some(deletedGoal => deletedGoal.id === goal.id)  ? "border-bottom-red text-red" : ""}`}>{depense.objectif.name}</td>
                 </tr>
