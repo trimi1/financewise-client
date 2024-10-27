@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import GoalsDTO from "../dto/goalsDTO.js";
-import Depenses from './depenses.jsx';
 
 function Goals() {
     const [idCreation, setIdCreation] = useState(-1)
