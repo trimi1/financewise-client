@@ -123,7 +123,8 @@ function Depenses() {
         if(hasBeenUpdated(depense.id)) {
             let index = updatedDepense.findIndex(d => d.id === depense.id);
             setUpdatedDepense(updatedDepense.filter((_, i) => i !== index));
-            setFiltredView([...filtredView])
+            let defaultDepense = depenses.find(d => d.id === depense.id);
+            setFiltredView([...filtredView.slice(0, index), defaultDepense, ...filtredView.slice(index+1)])
             return;
         }
 
@@ -262,6 +263,7 @@ function Depenses() {
                 />
             </div>
             {!showChart ? (
+            <div id="container-table">
                 <table className="margin-5">
                     <thead>
                     <tr>
@@ -342,6 +344,7 @@ function Depenses() {
                     ))}
                     </tbody>
                 </table>
+            </div>
             ) : (
                 <DepenseChart categories={categories} depenses={filtredView}/>
             )}

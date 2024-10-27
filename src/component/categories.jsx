@@ -13,17 +13,17 @@ function Categories() {
 
     // Return true or false if the category (id) is in addedCategories
     function hasBeenAdded(id) {
-        return addedCategories.some(addedCategories => addedCategories.idCategory === id)
+        return addedCategories.some(addedCategory => addedCategory.idCategory === id)
     }
 
     // Return true or false if the category (id) is in updatedCategories
     function hasBeenUpdated(id) {
-        return updatedCategories.some(updatedCategories => updatedCategories.idCategory === id)
+        return updatedCategories.some(updatedCategory => updatedCategory.idCategory === id)
     }
 
     // Return true or false if the category (id) is in deletedCategories
     function hasBeenDeleted(id) {
-        return deletedCategories.some(deletedCategories => deletedCategories.idCategory === id)
+        return deletedCategories.some(deletedCategory => deletedCategory.idCategory === id)
     }
 
     // Load all currencies and update the state of currencies at the first load of the component
@@ -147,7 +147,8 @@ function Categories() {
         if (hasBeenUpdated(category.idCategory)) {
             let index = updatedCategories.findIndex(c => c.idCategory === category.idCategory);
             setUpdatedCategories(updatedCategories.filter((_, i) => i !== index));
-            setViewCategories([...defaultCategories]);
+            let defaultCategory = defaultCategories.find(c => c.idCategory === category.idCategory);
+            setViewCategories([...viewCategories.slice(0, index), defaultCategory, ...viewCategories.slice(index + 1)]);
             return;
         }
 

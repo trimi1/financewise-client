@@ -157,7 +157,8 @@ function Goals() {
         if(hasBeenUpdated(goal.id)) {
             let index = updatedGoals.findIndex(g => g.id === goal.id);
             setUpdatedGoals(updatedGoals.filter((_, i) => i !== index));
-            setViewGoals([...defaultGoals])
+            let defaultGoal = defaultGoals.find(g => g.id = goal.id);
+            setViewGoals([...viewGoals.slice(0, index), defaultGoal, ...viewGoals.slice(index+1)]);
             return;
         }
         

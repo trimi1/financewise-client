@@ -1,6 +1,6 @@
 class CategoryDTO {
-    constructor({id = -1, name = "---", montantMax = 0, devise = "---"} = {}) {
-        this.idCategory = id;
+    constructor({idCategory = -1, name = "---", montantMax = 0, devise = "---"} = {}) {
+        this.idCategory = idCategory;
         this.name = name;
         this.montantMax = montantMax;
         this.devise = devise;
