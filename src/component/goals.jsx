@@ -10,6 +10,7 @@ function Goals() {
     const [updatedGoals, setUpdatedGoals] = useState([])
     const [deletedGoals, setDeletedGoals] = useState([])
     const [devises, setDevises] = useState([])
+    const [depenses, setDepenses] = useState([])
 
     // Return true or false if the goal (id) is in addedGoals.
     function hasBeenAdded(id) {
@@ -53,15 +54,14 @@ function Goals() {
                     throw new Error('Pas de réponse serveur');
                 }
                 const data = await response.json()
-                //let goals = []
-                //data.forEach(goal => {
-                //    goals.push(new GoalsDTO(goal))
-                //});
-                //setDefaultGoals(goals)
-                //setViewGoals(goals)
+                data.map(goal => new GoalsDTO(goal))
+                let goals = []
+                data.forEach(goal => {
+                    goals.push(new GoalsDTO(goal))
+                });
 
-                setDefaultGoals(data)
-                setViewGoals(data)
+                setDefaultGoals(goals)
+                setViewGoals(goals)
             } catch (error) {
                 console.error('Erreur :', error);
             }
@@ -284,7 +284,7 @@ function Goals() {
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Objectif financier</th>
+                        {editMode ? <th>Objectif financier</th> : <th>Avancement</th>}
                         <th>Date limite</th>
                         <th>Devise</th>
                         <th id="action-column" className={`text-center ${editMode ? "" : "width2 hidden"}`}><img src="./src/icon/plus.png" onClick={handleAddGoals}/></th>

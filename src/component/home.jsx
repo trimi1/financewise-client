@@ -116,7 +116,7 @@ function Home() {
                     <h2>Ce mois-ci :</h2>
                     <h3>- Vous avez fait {depenses.length} dépense(s)</h3>
                     {depenses.length > 0 && (
-                        <h3>- Vous avez dépensé {depenseParDevise}
+                        <h3>- Vous avez dépensé {depenseParDevise.toFixed(2)}
                             <select value={selectedDevise} onChange={(e) => setSelectedDevise(e.target.value)}>
                                 {devises.map(devise => (
                                     <option key={devise} value={devise}>{devise}</option>
