@@ -20,7 +20,7 @@ function DepenseChart({ categories, depenses }) {
             label: 'Montants par catégorie',
             data: categories.map(category => {
                 return depenses
-                    .filter(depense => depense.categorie.name === category.name)
+                    .filter(depense => depense.categorie && depense.categorie.name === category.name)
                     .reduce((sum, depense) => sum + depense.montant, 0);
             }),
             backgroundColor: categories.map(() => getRandomColor()),
