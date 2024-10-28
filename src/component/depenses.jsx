@@ -32,10 +32,6 @@ function Depenses() {
         return deletedDepense.some(deletedDepense => deletedDepense.id === id);
     }
 
-    useEffect(() => {
-        console.log("SYNCHONISE");
-    });
-
     function changeCategory(event) {
         const newCategory = event.target.value;
         setSelectedCategory(newCategory);
@@ -66,6 +62,16 @@ function Depenses() {
                 let index = addedDepense.findIndex(d => d.id === depense.id);
                 let updateDepense = addedDepense[index];
                 updateDepense.setProperty(field, event.target.value)
+
+                if(field === "objectif") {
+                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
+                } 
+                
+                if(field === "categorie") {
+                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
+                } 
+            
+
                 setAddedDepense([...addedDepense.slice(0, index), updateDepense, ...addedDepense.slice(index+1)]);
                 index = filtredView.findIndex(d => d.id === updateDepense.id)
                 setFiltredView([...filtredView.slice(0, index), updateDepense, ...filtredView.slice(index+1)]);
@@ -99,8 +105,8 @@ function Depenses() {
             name: "Nouvelle dépense",
             montant: 0.0,
             devise: "Euro",
-            date: new Date()
-        })
+            date: new Date(),
+        });
 
         setAddedDepense((prevAddDepense) => {
             const newAddedDepense = [...prevAddDepense, newDepense];
@@ -235,6 +241,8 @@ function Depenses() {
         let addDepenseConfirm = [...addedDepense];
         addDepenseConfirm.forEach(d => d.id = -1);
         addDepenseConfirm.push(...updatedDepense);
+        console.log(localStorage.getItem("IDUSER"))
+        console.log(addDepenseConfirm)
         fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
             method: 'PUT',
             headers: {
@@ -297,6 +305,51 @@ function Depenses() {
             setDeletedDepense([])
         })
     }
+
+    function getObjectif(depense) {
+        if(hasBeenAdded(depense.id)) {
+            let depenseFounded = addedDepense.find(d => d.id === depense.id);
+            return depenseFounded.objectif === null ? "Objectif non défini" : depenseFounded.objectif.name;
+        }
+
+        if(hasBeenUpdated(depense.id)) {
+            let depenseFounded = updatedDepense.find(d => d.id === depense.id);
+            return depenseFounded.objectif === null ? "Objectif non défini" : depenseFounded.objectif.name;
+        }
+
+        return depense.objectif === null ? "Objectif non défini" : depense.objectif.name;
+    }
+
+    function getCategory(depense) {
+        if(hasBeenAdded(depense.id)) {
+            let depenseFounded = addedDepense.find(d => d.id === depense.id);
+            return depenseFounded.categorie === null ? "Catégorie non défini" : depenseFounded.categorie.name;
+        }
+
+        if(hasBeenUpdated(depense.id)) {
+            let depenseFounded = updatedDepense.find(d => d.id === depense.id);
+            return depenseFounded.categorie === null ? "catégorie non défini" : depenseFounded.categorie.name;
+        }
+
+        return depense.categorie === null ? "catégorie non défini" : depense.categorie.name;
+    }
+
+    // Effect to log updated goals whenever they change
+    useEffect(() => {
+        console.log("Updated depenses have changed:", updatedDepense);
+    }, [updatedDepense]);
+
+    useEffect(() => {
+        console.log("added depenses have changed:", addedDepense);
+    }, [addedDepense]);
+
+    useEffect(() => {
+        console.log("deleted depenses have changed:", deletedDepense);
+    }, [deletedDepense]);
+
+    useEffect(() => {
+        console.log("filtredView depenses have changed:", filtredView);
+    }, [filtredView]);
 
     return (
         <section>
@@ -377,35 +430,31 @@ function Depenses() {
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
                                 {editMode && !hasBeenDeleted(depense.id) ? (
-                                    <select
-                                        value={updatedDepense.find(g => g.id === depense.id)?.categorie.name || depense.categorie.name}
-                                        onChange={(e) => handleInputChanges(e, depense, 'categorie')}
-                                    >
+                                    <select onChange={(e) => handleInputChanges(e, depense, 'categorie')}>
+                                        {getCategory(depense) === "Catégorie non défini" && (<option value="null">{getCategory(depense)}</option>)}
                                         {categories
                                             .filter(category => category.devise === depense.devise)
                                             .map((categorie, index) => (
-                                                <option key={index} value={categorie.name}>{categorie.name}</option>
+                                                <option key={index} value={categorie.idCategory}>{categorie.name}</option>
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.categorie.name
+                                    depense.categorie.name === null ? "Catégorie non défini" : depense.categorie.name
                                 )}
                             </td>
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
                                 {editMode && !hasBeenDeleted(depense.id) ? (
-                                    <select
-                                        value={updatedDepense.find(g => g.id === depense.id)?.objectif.name || depense.objectif.name}
-                                        onChange={(e) => handleInputChanges(e, depense, 'objectif')}
-                                    >
+                                    <select onChange={(e) => handleInputChanges(e, depense, 'objectif')}>
+                                        {getObjectif(depense) === "Objectif non défini" && (<option value="null">{getObjectif(depense)}</option>)}
                                         {goals
                                             .filter(goal => goal.devise === depense.devise)
                                             .map((goal, index) => (
-                                                <option key={index} value={goal.name}>{goal.name}</option>
+                                                <option key={index} value={goal.id}>{goal.name}</option>
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.objectif.name
+                                    depense.objectif.name === null ? "Objectif non défini": depense.objectif.name
                                 )}
                             </td>
                             <td key={depense.id}
