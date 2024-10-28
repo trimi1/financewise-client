@@ -49,8 +49,9 @@ function RegisterForm() {
             });
 
             if (!response.ok) {
-                if (response.status === 403) {
-                    throw new Error("Erreur : 403");
+                if (response.status === 500) {
+                    console.log(response)
+                    throw new Error("Erreur : 500");
                 }
                 throw new Error(`Erreur HTTP POST : ${response.status}`);
             }
@@ -61,8 +62,8 @@ function RegisterForm() {
             navigate("/home");
         } catch (error) {
             setReport(
-                error.message === "Erreur : 403"
-                    ? "Erreur de connexion : Veuillez vérifier vos identifiants."
+                error.message === "Erreur : 500"
+                    ? "Une erreur est survenue lors de votre enregistrement. Veuillez réessayer."
                     : "Erreur de connexion : Service injoignable."
             );
             document.getElementById("error-Text-register").className = "error-text";

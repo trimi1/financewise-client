@@ -104,11 +104,6 @@ form {
     width: 95%;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
 form label {
     display: flex;
     flex-direction: column;
@@ -137,6 +132,9 @@ input {
     font-size: 1.1em;
 }
 
+#input-check-undefined {
+    width: 30%;
+} 
 #inputFirstNameRegister, #inputSecondNameRegister {
     width: 70%;
 }
@@ -181,11 +179,15 @@ table {
 thead {
     top: 0;
     z-index: 10;  
-    position: sticky;    
+    position: sticky;   
+   
 }
 
 th, td {
     padding: 12px 15px;
+}
+
+tr, th {
     border-bottom: 2px solid black;
 }
 
@@ -610,10 +612,24 @@ tr:hover {
     user-select: none;
 }
 
-#edit-confirm h2{
-   padding: 0.5em;
+
+#edit-confirm div {
+    padding: 0.5em;
+ }
+ 
+
+#edit-confirm h2 {
+    padding-right: 0.5em;
 }
-#edit-confirm h2:hover {
+
+#edit-confirm div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-confirm div:hover {
     border: 2px solid black;
     border-radius: 10px;
 }
@@ -632,9 +648,10 @@ aside h2:hover {
     cursor: pointer; 
 }
 
-.img-action {
+img {
     cursor: pointer;
-    width: 27%;
+    width: 3vh;
+    height: 3vh; 
 }
 
 
