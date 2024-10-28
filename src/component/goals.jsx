@@ -194,6 +194,7 @@ function Goals() {
         setDeletedGoals([])
         setViewGoals([...defaultGoals])
     }
+
     // This function sets the IDs of all newly added goals to -1 to indicate they need to be created,
     // while keeping the IDs of updated goals unchanged. It then sends a request to update the database,
     // followed by a synchronization request to refresh all components with the latest database values.
