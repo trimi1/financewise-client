@@ -307,9 +307,10 @@ function Depenses() {
     }
 
     function getObjectif(depense) {
+        // Voir pour déplacer la logique dans un getter
         if(hasBeenAdded(depense.id)) {
             let depenseFounded = addedDepense.find(d => d.id === depense.id);
-            return depenseFounded.objectif === null ? "Objectif non défini" : depenseFounded.objectif.name;
+            return depenseFounded.getGoalsName
         }
 
         if(hasBeenUpdated(depense.id)) {
@@ -321,6 +322,7 @@ function Depenses() {
     }
 
     function getCategory(depense) {
+        // Voir pour déplacer la logique dans un getter
         if(hasBeenAdded(depense.id)) {
             let depenseFounded = addedDepense.find(d => d.id === depense.id);
             return depenseFounded.categorie === null ? "Catégorie non défini" : depenseFounded.categorie.name;
@@ -334,23 +336,21 @@ function Depenses() {
         return depense.categorie === null ? "catégorie non défini" : depense.categorie.name;
     }
 
-    // Effect to log updated goals whenever they change
     useEffect(() => {
-        console.log("Updated depenses have changed:", updatedDepense);
-    }, [updatedDepense]);
-
-    useEffect(() => {
-        console.log("added depenses have changed:", addedDepense);
-    }, [addedDepense]);
-
-    useEffect(() => {
-        console.log("deleted depenses have changed:", deletedDepense);
-    }, [deletedDepense]);
-
-    useEffect(() => {
-        console.log("filtredView depenses have changed:", filtredView);
-    }, [filtredView]);
-
+        if (updatedDepense) {
+            console.log("Updated depenses have changed:", updatedDepense);
+        }
+        if (addedDepense) {
+            console.log("Added depenses have changed:", addedDepense);
+        }
+        if (deletedDepense) {
+            console.log("Deleted depenses have changed:", deletedDepense);
+        }
+        if (filtredView) {
+            console.log("FiltredView depenses have changed:", filtredView);
+        }
+    }, [updatedDepense, addedDepense, deletedDepense, filtredView]);
+    
     return (
         <section>
             <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center">
@@ -439,7 +439,7 @@ function Depenses() {
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.categorie.name === null ? "Catégorie non défini" : depense.categorie.name
+                                    depense.categorie === null ? "Catégorie non défini" : depense.categorie.name
                                 )}
                             </td>
 
@@ -454,7 +454,7 @@ function Depenses() {
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.objectif.name === null ? "Objectif non défini": depense.objectif.name
+                                    depense.objectif === null ? "Objectif non défini": depense.objectif.name
                                 )}
                             </td>
                             <td key={depense.id}
@@ -473,15 +473,15 @@ function Depenses() {
             )}
             <div id="edit-confirm"
                  className={`is-flex is-flex-direction-row is-justify-content-space-around width85 margin-5 ${editMode ? "" : "hidden"}`}>
-                <div>
+                <div onClick={handleCancelChanges}>
                     <h2>Annuler les changements</h2>
                     <img src="./src/icon/cancel.png"/>
                 </div>
-                <div>
+                <div onClick={handleDeleteConfirm}>
                     <h2>{`Supprimer ${deletedDepense.length} dépenses`}</h2>
                     <img src="./src/icon/delete.png"/>
                 </div>
-                <div>
+                <div onClick={handleChangeConfirm}>
                     <h2>{`Valider ${addedDepense.length + updatedDepense.length} changements`}</h2>
                     <img src="./src/icon/verifier.png"/>
                 </div>

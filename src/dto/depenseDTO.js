@@ -13,6 +13,10 @@ class DepenseDTO {
         this.objectif = objectif === null ? null : new GoalsDTO(objectif);
     }
 
+    get getGoalsName() {
+        return this.objectif === null ? "Objectif non défini" : this.objectif.name;
+    }
+
     setProperty(property, value) {
         switch(property) {
             case 'name':
