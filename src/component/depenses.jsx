@@ -376,29 +376,37 @@ function Depenses() {
                             </td>
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
-                                {editMode && !hasBeenDeleted(depense.id) ?
-                                    (
-                                        <select
-                                            value={updatedDepense.find(g => g.id === depense.id)?.categorie.name || depense.categorie.name}
-                                            onChange={(e) => handleInputChanges(e, depense, 'categorie')}>
-                                            {categories.map((categorie, index) => (
-                                                <option key={index}
-                                                        value={categorie.name}> {categorie.name} </option>))}
-                                        </select>
-                                    ) : (depense.categorie.name)}
+                                {editMode && !hasBeenDeleted(depense.id) ? (
+                                    <select
+                                        value={updatedDepense.find(g => g.id === depense.id)?.categorie.name || depense.categorie.name}
+                                        onChange={(e) => handleInputChanges(e, depense, 'categorie')}
+                                    >
+                                        {categories
+                                            .filter(category => category.devise === depense.devise)
+                                            .map((categorie, index) => (
+                                                <option key={index} value={categorie.name}>{categorie.name}</option>
+                                            ))}
+                                    </select>
+                                ) : (
+                                    depense.categorie.name
+                                )}
                             </td>
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
-                                {editMode && !hasBeenDeleted(depense.id) ?
-                                    (
-                                        <select
-                                            value={updatedDepense.find(g => g.id === depense.id)?.categorie.name || depense.categorie.name}
-                                            onChange={(e) => handleInputChanges(e, depense, 'goal')}>
-                                            {goals.map((goal, index) => (
-                                                <option key={index}
-                                                        value={goal.name}> {goal.name} </option>))}
-                                        </select>
-                                    ) : (depense.objectif.name)}
+                                {editMode && !hasBeenDeleted(depense.id) ? (
+                                    <select
+                                        value={updatedDepense.find(g => g.id === depense.id)?.objectif.name || depense.objectif.name}
+                                        onChange={(e) => handleInputChanges(e, depense, 'objectif')}
+                                    >
+                                        {goals
+                                            .filter(goal => goal.devise === depense.devise)
+                                            .map((goal, index) => (
+                                                <option key={index} value={goal.name}>{goal.name}</option>
+                                            ))}
+                                    </select>
+                                ) : (
+                                    depense.objectif.name
+                                )}
                             </td>
                             <td key={depense.id}
                                 className={`width2 text-center ${editMode ? "" : "hidden"} ${hasBeenDeleted(depense.id) ? " border-bottom-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}
