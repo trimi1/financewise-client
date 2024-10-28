@@ -46,7 +46,13 @@ function Depenses() {
 
     function handleInputChanges(event, depense, field) {
         let depenseCompare = hasBeenUpdated(depense.id) ? new DepenseDTO(updatedDepense.find(d => d.id === depense.id)) : new DepenseDTO(depense)
-        depenseCompare.setProperty(field, event.target.value)
+        if(field === "objectif") {
+            event.target.value === "null" ?  depenseCompare.setProperty(field, null) : depenseCompare.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
+        } else if(field === "categorie") {
+            event.target.value === "null" ?  depenseCompare.setProperty(field, null) : depenseCompare.setProperty(field, categories.find(c => c.idCategory === Number(event.target.value)));
+        } else {
+            depenseCompare.setProperty(field, event.target.value)
+        }
 
         let isEqual = depenses.some(d => JSON.stringify(d) === JSON.stringify(depenseCompare));
         if(isEqual) {
@@ -61,16 +67,13 @@ function Depenses() {
             if(hasBeenAdded(depense.id)) {
                 let index = addedDepense.findIndex(d => d.id === depense.id);
                 let updateDepense = addedDepense[index];
-                updateDepense.setProperty(field, event.target.value)
-
                 if(field === "objectif") {
                     event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
+                } else if(field === "categorie") {
+                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, categories.find(c => c.idCategory === Number(event.target.value)));
+                } else {
+                    updateDepense.setProperty(field, event.target.value)
                 }
-
-                if(field === "categorie") {
-                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
-                }
-
 
                 setAddedDepense([...addedDepense.slice(0, index), updateDepense, ...addedDepense.slice(index+1)]);
                 index = filtredView.findIndex(d => d.id === updateDepense.id)
@@ -78,7 +81,14 @@ function Depenses() {
             } else {
                 let index = updatedDepense.findIndex(d => d.id === depense.id);
                 let updateDepense = hasBeenUpdated(depense.id) ? updatedDepense[index] : new DepenseDTO(depense);
-                updateDepense.setProperty(field, event.target.value)
+                if(field === "objectif") {
+                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
+                } else if(field === "categorie") {
+                    event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, categories.find(c => c.idCategory === Number(event.target.value)));
+                } else {
+                    updateDepense.setProperty(field, event.target.value)
+                }
+
                 hasBeenUpdated(depense.id) ? setUpdatedDepense([...updatedDepense.slice(0, index), updateDepense, ...updatedDepense.slice(index+1)])
                     : setUpdatedDepense(prevUpdate => {
                         return [...prevUpdate, updateDepense]
@@ -275,11 +285,11 @@ function Depenses() {
                     throw new Error('Erreur lors de la récupération des dépenses')
                 }
                 return reponse.json();
-            })
-            .then((data) => {
-                setDepenses(data)
-                setFiltredView(data);
-            })
+            }).then(array => {
+                const depensesArray = array.map(depense => new DepenseDTO(depense));
+                setDepenses(depensesArray);
+                setFiltredView(depensesArray)
+            });
     }
 
     function handleDeleteConfirm() {
@@ -304,36 +314,6 @@ function Depenses() {
             setFiltredView(remainDepense)
             setDeletedDepense([])
         })
-    }
-
-    function getObjectif(depense) {
-        // Voir pour déplacer la logique dans un getter
-        if(hasBeenAdded(depense.id)) {
-            let depenseFounded = addedDepense.find(d => d.id === depense.id);
-            return depenseFounded.getGoalsName
-        }
-
-        if(hasBeenUpdated(depense.id)) {
-            let depenseFounded = updatedDepense.find(d => d.id === depense.id);
-            return depenseFounded.objectif === null ? "Objectif non défini" : depenseFounded.objectif.name;
-        }
-
-        return depense.objectif === null ? "Objectif non défini" : depense.objectif.name;
-    }
-
-    function getCategory(depense) {
-        // Voir pour déplacer la logique dans un getter
-        if(hasBeenAdded(depense.id)) {
-            let depenseFounded = addedDepense.find(d => d.id === depense.id);
-            return depenseFounded.categorie === null ? "Catégorie non défini" : depenseFounded.categorie.name;
-        }
-
-        if(hasBeenUpdated(depense.id)) {
-            let depenseFounded = updatedDepense.find(d => d.id === depense.id);
-            return depenseFounded.categorie === null ? "catégorie non défini" : depenseFounded.categorie.name;
-        }
-
-        return depense.categorie === null ? "catégorie non défini" : depense.categorie.name;
     }
 
     useEffect(() => {
@@ -430,8 +410,8 @@ function Depenses() {
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
                                 {editMode && !hasBeenDeleted(depense.id) ? (
-                                    <select onChange={(e) => handleInputChanges(e, depense, 'categorie')}>
-                                        {getCategory(depense) === "Catégorie non défini" && (<option value="null">{getCategory(depense)}</option>)}
+                                    <select value={depense.getCategoryId} onChange={(e) => handleInputChanges(e, depense, 'categorie')}>
+                                        <option value="null">Catégorie non défini</option>
                                         {categories
                                             .filter(category => category.devise === depense.devise)
                                             .map((categorie, index) => (
@@ -439,14 +419,14 @@ function Depenses() {
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.categorie === null ? "Catégorie non défini" : depense.categorie.name
+                                    depense.getCategoryName
                                 )}
                             </td>
 
                             <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
                                 {editMode && !hasBeenDeleted(depense.id) ? (
-                                    <select onChange={(e) => handleInputChanges(e, depense, 'objectif')}>
-                                        {getObjectif(depense) === "Objectif non défini" && (<option value="null">{getObjectif(depense)}</option>)}
+                                    <select value={depense.getGoalsId} onChange={(e) => handleInputChanges(e, depense, 'objectif')}>
+                                        <option value="null">Objectif non défini</option>
                                         {goals
                                             .filter(goal => goal.devise === depense.devise)
                                             .map((goal, index) => (
@@ -454,7 +434,7 @@ function Depenses() {
                                             ))}
                                     </select>
                                 ) : (
-                                    depense.objectif === null ? "Objectif non défini": depense.objectif.name
+                                    depense.getGoalsName
                                 )}
                             </td>
                             <td key={depense.id}

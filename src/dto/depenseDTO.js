@@ -1,6 +1,5 @@
 import CategoryDTO from './categoryDTO.js';
 import GoalsDTO from "./goalsDTO.js";
-import categoryDTO from "./categoryDTO.js";
 
 class DepenseDTO {
     constructor({id = -1, name = "---", montant = 0.0, devise = "---", date = new Date(), categorie = null, objectif = null} = {}) {
@@ -13,8 +12,20 @@ class DepenseDTO {
         this.objectif = objectif === null ? null : new GoalsDTO(objectif);
     }
 
+    get getCategoryId() {
+        return this.categorie === null ? "null" : this.categorie.idCategory;
+    }
+
+    get getCategoryName() {
+        return this.categorie === null ? "Catégorie non défini" : this.categorie.name;
+    }
+
+    get getGoalsId() {
+        return this.objectif === null ? "null" : this.objectif.id;
+    }
+
     get getGoalsName() {
-        return this.objectif === null ? "Objectif non défini" : this.objectif.name;
+        return this.objectif === null ? "Objectif non défini": this.objectif.name
     }
 
     setProperty(property, value) {
@@ -32,7 +43,7 @@ class DepenseDTO {
                 this[property] = new Date(value);
                 break;
             case 'categorie' :
-                this[property] = new CategoryDTO(value);
+                this[property] = value;
                 break;
             case 'objectif':
                 this[property] = value;
