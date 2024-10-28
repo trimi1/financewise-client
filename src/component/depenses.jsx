@@ -231,6 +231,73 @@ function Depenses() {
         return new Date(new Date(date).getTime() - new Date(date).getTimezoneOffset() * 60000)
     }
 
+    function handleChangeConfirm() {
+        let addDepenseConfirm = [...addedDepense];
+        addDepenseConfirm.forEach(d => d.id = -1);
+        addDepenseConfirm.push(...updatedDepense);
+        fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("TOKEN")}`
+            },
+            body: JSON.stringify(addDepenseConfirm)
+        })
+            .then((reponse) => {
+                if(!reponse.ok) {
+                    if(reponse.status === 403) {
+                        throw new Error("Erreur : 403")
+                    }
+                    throw new Error(`Erreur HTTP POST : ${reponse.status} Message : ${reponse.message}`)
+                }
+                console.log("Ajout confirmé")
+                setAddedDepense([])
+                setUpdatedDepense([])
+                return fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("TOKEN")}`
+                    }
+
+                })
+            })
+            .then((reponse) => {
+                if(!reponse.ok) {
+                    throw new Error('Erreur lors de la récupération des dépenses')
+                }
+                return reponse.json();
+            })
+            .then((data) => {
+                setDepenses(data)
+                setFiltredView(data);
+            })
+    }
+
+    function handleDeleteConfirm() {
+        let deletedDepenseConfirm = [...deletedDepense]
+        fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("TOKEN")}`
+            },
+            body: JSON.stringify(deletedDepenseConfirm)
+        }).then(reponse => {
+            if(!reponse.ok) {
+                if(reponse.status === 403) {
+                    throw new Error("Erreur 403");
+                }
+                throw new Error(`Erreur HTTP POST : ${reponse.status} Message : ${reponse.message}`)
+            }
+            console.log("Dépenses supprimées")
+            let remainDepense = depenses.filter(d => !deletedDepenseConfirm.includes(d))
+            setDepenses(remainDepense)
+            setFiltredView(remainDepense)
+            setDeletedDepense([])
+        })
+    }
+
     return (
         <section>
             <div className="is-flex flex-direction-row is-justify-content-end is-align-items-center">
@@ -353,10 +420,10 @@ function Depenses() {
                 <h2 onClick={handleCancelChanges}>
                     Annuler les changements 🔄️
                 </h2>
-                <h2>
+                <h2 onClick={handleDeleteConfirm}>
                     {`Supprimer ${deletedDepense.length} dépenses ❌`}
                 </h2>
-                <h2>
+                <h2 onClick={handleChangeConfirm}>
                     {`Valider ${addedDepense.length + updatedDepense.length} changements ✅`}
                 </h2>
             </div>
