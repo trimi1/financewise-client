@@ -41,8 +41,9 @@ function LoginForm() {
         })
             .then((response) => {
                 if (!response.ok) {
-                    if (response.status === 403) {
-                        throw new Error("Erreur : 403");
+                    if (response.status === 403 || response.status === 404) {
+                        console.log(response.status)
+                        throw new Error("Erreur : client");
                     }
                     throw new Error('Erreur HTTP POST : ' + response.status + ' Message : ' + response.message);
                 }
@@ -54,7 +55,7 @@ function LoginForm() {
                 navigate("/home");
             })
             .catch((error) => {
-                if (error.message === "Erreur : 403") {
+                if (error.message === "Erreur : client" ) {
                     setReport("Erreur de connexion : Veuillez vérifier vos identifiants.");
                 } else {
                     setReport("Erreur de connexion : Service injoignable.");

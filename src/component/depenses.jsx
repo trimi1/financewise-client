@@ -65,12 +65,12 @@ function Depenses() {
 
                 if(field === "objectif") {
                     event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
-                } 
-                
+                }
+
                 if(field === "categorie") {
                     event.target.value === "null" ?  updateDepense.setProperty(field, null) : updateDepense.setProperty(field, goals.find(g => g.id === Number(event.target.value)));
-                } 
-            
+                }
+
 
                 setAddedDepense([...addedDepense.slice(0, index), updateDepense, ...addedDepense.slice(index+1)]);
                 index = filtredView.findIndex(d => d.id === updateDepense.id)
@@ -105,7 +105,7 @@ function Depenses() {
             name: "Nouvelle dépense",
             montant: 0.0,
             devise: "Euro",
-            date: new Date(),
+            date: new Date()
         });
 
         setAddedDepense((prevAddDepense) => {
@@ -359,7 +359,7 @@ function Depenses() {
                 <img id="id-edition-icon" src="./src/icon/edition.png" className="marginR5"
                      onClick={handleEditionMode}></img>
             </div>
-            <div className="is-flex is-flex-direction-row is-justify-content-start marginL5">
+            <div className="is-flex is-flex-direction-row is-justify-content-start is-align-items-center marginL5">
                 <label htmlFor="categorySelect">Filtrer par catégorie :</label>
                 <select
                     id="categorySelect"
@@ -400,23 +400,23 @@ function Depenses() {
                     </thead>
                     <tbody>
                     {filtredView.map((depense, index) => (
-                        <tr key={index}>
-                            <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? "border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? "border-bottom-blue" : ""}`}>
-                                {editMode && !hasBeenDeleted(depense.id) ? (
-                                    <input type="date" value={formatDate(depense).toISOString().substr(0, 10)}
-                                           onChange={(e) => handleInputChanges(e, depense, 'date')}/>) : new Date(depense.date).toLocaleDateString()}
+                        <tr key={index} className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? "border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? "border-bottom-blue" : ""}`}>
+                            <td>
+                                {editMode && !hasBeenDeleted(depense.id) ?
+                                (<input type="date" value={formatDate(depense).toISOString().substr(0, 10)} onChange={(e) => handleInputChanges(e, depense, 'date')}/>)
+                                : new Date(depense.date).toLocaleDateString()}
                             </td>
-                            <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? "border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? "border-bottom-blue" : ""}`}>
-                                {editMode && !hasBeenDeleted(depense.id) ? (<input type="text"
-                                                                                   value={updatedDepense.find(d => d.id === depense.id)?.name || depense.name}
-                                                                                   onChange={(e) => handleInputChanges(e, depense, 'name')}/>) : (depense.name)}
+                            <td>
+                                {editMode && !hasBeenDeleted(depense.id) ?
+                                (<input type="text" value={updatedDepense.find(d => d.id === depense.id)?.name || depense.name} onChange={(e) => handleInputChanges(e, depense, 'name')}/>)
+                                : (depense.name)}
                             </td>
-                            <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? "border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? "border-bottom-blue" : ""}`}>
-                                {editMode && !hasBeenDeleted(depense.id) ? (<input type="number"
-                                                                                   value={updatedDepense.find(d => d.id === depense.id)?.montant || depense.montant}
-                                                                                   onChange={(e) => handleInputChanges(e, depense, 'montant')}/>) : (depense.montant)}
+                            <td>
+                                {editMode && !hasBeenDeleted(depense.id) ?
+                                (<input type="number" min={0} value={updatedDepense.find(d => d.id === depense.id)?.montant || depense.montant} onChange={(e) => handleInputChanges(e, depense, 'montant')}/>)
+                                : (depense.montant)}
                             </td>
-                            <td className={`${hasBeenDeleted(depense.id) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}>
+                            <td>
                                 {editMode && !hasBeenDeleted(depense.id) ?
                                     (
                                         <select
@@ -458,11 +458,10 @@ function Depenses() {
                                 )}
                             </td>
                             <td key={depense.id}
-                                className={`width2 text-center ${editMode ? "" : "hidden"} ${hasBeenDeleted(depense.id) ? " border-bottom-red" : ""} ${hasBeenAdded(depense.id) ? " border-bottom-green" : ""} ${hasBeenUpdated(depense.id) ? " border-bottom-blue" : ""}`}
+                                className={`width2 text-center ${editMode ? "" : "hidden"}`}
                                 onClick={() => handleCancelOrDelete(depense)}>
                                 <img
-                                    src={`./src/icon/${hasBeenDeleted(depense.id) || hasBeenUpdated(depense.id) || hasBeenAdded(depense.id) ? "cancel.png" : "delete.png"}`}
-                                    className="img-action"/>
+                                    src={`./src/icon/${hasBeenDeleted(depense.id) || hasBeenUpdated(depense.id) || hasBeenAdded(depense.id) ? "cancel.png" : "delete.png"}`}/>
                             </td>
                         </tr>
                     ))}
@@ -474,15 +473,18 @@ function Depenses() {
             )}
             <div id="edit-confirm"
                  className={`is-flex is-flex-direction-row is-justify-content-space-around width85 margin-5 ${editMode ? "" : "hidden"}`}>
-                <h2 onClick={handleCancelChanges}>
-                    Annuler les changements 🔄️
-                </h2>
-                <h2 onClick={handleDeleteConfirm}>
-                    {`Supprimer ${deletedDepense.length} dépenses ❌`}
-                </h2>
-                <h2 onClick={handleChangeConfirm}>
-                    {`Valider ${addedDepense.length + updatedDepense.length} changements ✅`}
-                </h2>
+                <div>
+                    <h2>Annuler les changements</h2>
+                    <img src="./src/icon/cancel.png"/>
+                </div>
+                <div>
+                    <h2>{`Supprimer ${deletedDepense.length} dépenses`}</h2>
+                    <img src="./src/icon/delete.png"/>
+                </div>
+                <div>
+                    <h2>{`Valider ${addedDepense.length + updatedDepense.length} changements`}</h2>
+                    <img src="./src/icon/verifier.png"/>
+                </div>
             </div>
         </section>
     );

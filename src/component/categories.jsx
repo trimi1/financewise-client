@@ -72,6 +72,8 @@ function Categories() {
     }, []);
 
     // Handle all processes of changing inputs in edit mode.
+
+    //TODO : gérer le -1 : pas de montant précisé
     function handleInputChange(event, category, field) {
         let categoryCompare = hasBeenUpdated(category.idCategory)
             ? new CategoryDTO(updatedCategories.find(c => c.idCategory === category.idCategory))
@@ -240,24 +242,30 @@ function Categories() {
                 <tr>
                     <th>Nom</th>
                     <th>Montant Max</th>
+                    {editMode && (<th>Pas de montant</th>)}
                     <th>Devise</th>
                     <th id="action-column" className={`text-center ${editMode ? "" : "width2 hidden"}`}><img className="img-action" src="./src/icon/plus.png" onClick={handleAddCategory}/></th>
                 </tr>
                 </thead>
                 <tbody>
                 {viewCategories.map((category, index) => (
-                    <tr key={index}>
-                        <td className={`${hasBeenDeleted(category.idCategory) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(category.idCategory) ? " border-bottom-green" : ""} ${hasBeenUpdated(category.idCategory) ? " border-bottom-blue" : ""}`}>
+                    <tr key={index} className={`${hasBeenDeleted(category.idCategory) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(category.idCategory) ? " border-bottom-green" : ""} ${hasBeenUpdated(category.idCategory) ? " border-bottom-blue" : ""}`}>
+                        <td>
                             {editMode && !hasBeenDeleted(category.idCategory) ? (
                                 <input type="text" value={updatedCategories.find(c => c.idCategory === category.idCategory)?.name || category.name} onChange={(e) => handleInputChange(e, category, 'name')}/>
                             ) : (category.name)}
                         </td>
-                        <td className={`${hasBeenDeleted(category.idCategory) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(category.idCategory) ? " border-bottom-green" : ""} ${hasBeenUpdated(category.idCategory) ? " border-bottom-blue" : ""}`}>
+                        <td>
                             {editMode && !hasBeenDeleted(category.idCategory) ? (
-                                <input type="number" value={updatedCategories.find(c => c.idCategory === category.idCategory)?.montantMax || category.montantMax} onChange={(e) => handleInputChange(e, category, 'montantMax')}/>
-                            ) : (category.montantMax)}
+                                <input type="number" min={0} value={category.montantMax === null ? 0 : updatedCategories.find(c => c.idCategory === category.idCategory)?.montantMax || category.montantMax} onChange={(e) => handleInputChange(e, category, 'montantMax')}/>
+                            ) : (category.montantMax === null ? "Montant non défini" : category.montantMax)}
                         </td>
-                        <td className={`${hasBeenDeleted(category.idCategory) ? "border-bottom-red text-red" : ""} ${hasBeenAdded(category.idCategory) ? " border-bottom-green" : ""} ${hasBeenUpdated(category.idCategory) ? " border-bottom-blue" : ""}`}>
+                        {editMode && (
+                            <td>
+                                <input id="input-check-undefined" type="checkbox"/>
+                            </td>)
+                        }
+                        <td>
                             {editMode && !hasBeenDeleted(category.idCategory) ? (
                                 <select value={updatedCategories.find(c => c.idCategory === category.idCategory)?.devise || category.devise} onChange={(e) => handleInputChange(e, category, 'devise')}>
                                     {devises.map((devise, index) => (
@@ -266,7 +274,7 @@ function Categories() {
                                 </select>
                             ) : (category.devise)}
                         </td>
-                        <td key={category.idCategory} className={`width2 text-center ${editMode ? "" : "hidden"} ${hasBeenDeleted(category.idCategory) ? " border-bottom-red" : ""} ${hasBeenAdded(category.idCategory) ? " border-bottom-green" : ""} ${hasBeenUpdated(category.idCategory) ? " border-bottom-blue" : ""}`} onClick={() => handleCancelOrDelete(category)}>
+                        <td key={category.idCategory} className={`width2 text-center ${editMode ? "" : "hidden"}`} onClick={() => handleCancelOrDelete(category)}>
                             <img src={`./src/icon/${hasBeenDeleted(category.idCategory) || hasBeenUpdated(category.idCategory) || hasBeenAdded(category.idCategory) ? "cancel.png" : "delete.png"}`} className="img-action"/>
                         </td>
                     </tr>
