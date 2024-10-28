@@ -5,6 +5,7 @@ import GoalsDTO from "../dto/goalsDTO.js";
 function Home() {
     const [fullname, setFullname] = useState("");
     const [depenses, setDepenses] = useState([]);
+    const [allDepenses, setAllDepenses] = useState([]);
     const [selectedDevise, setSelectedDevise] = useState("");
     const [selectedDeviseInvestissement, setSelectedDeviseInvestissement] = useState("");
     const [selectedDeviseEconomie, setSelectedDeviseEconomie] = useState("");
@@ -48,6 +49,7 @@ function Home() {
                 return response.json();
             })
             .then(array => {
+                setAllDepenses(array.map(depense => new DepenseDTO(depense)));
                 const depensesThisMonth = array.map(depense => new DepenseDTO(depense))
                     .filter(depense => {
                         const depenseDate = new Date(depense.date).toLocaleDateString("fr-CA", { year: "numeric", month: "2-digit" });
@@ -82,6 +84,21 @@ function Home() {
             .then(array => array.map(goal => new GoalsDTO(goal)))
             .then(array => setGoals(array));
     }, []);
+
+    const validatedGoalsCount = goals.filter(goal => {
+        const depensesForGoal = depenses.filter(depense => depense.objectif?.id === goal.id);
+        const totalDepenseGoal = depensesForGoal.reduce((total, depense) => total + depense.montant, 0);
+        const lastDepenseDate = depensesForGoal.length > 0
+            ? new Date(Math.max(...depensesForGoal.map(depense => new Date(depense.date))))
+            : null;
+        const currentMonth = new Date().toLocaleDateString("fr-CA", { year: "numeric", month: "2-digit" });
+        const isLastDepenseThisMonth = lastDepenseDate
+            ? lastDepenseDate.toLocaleDateString("fr-CA", { year: "numeric", month: "2-digit" }) === currentMonth
+            : false;
+
+        return totalDepenseGoal >= goal.montant && isLastDepenseThisMonth;
+    }).length;
+
 
     const depenseParDevise = depenses
         .filter(depense => depense.devise === selectedDevise)
@@ -163,9 +180,17 @@ function Home() {
                 </article>
                 <article className="colorBlue text-White">
                     <h2>Ce mois-ci</h2>
-                    <h3>- Vous avez réalisé 0 objectifs</h3>
-                    <h3>- Vos objectifs ont avancé de 0%</h3>
+                    {validatedGoalsCount > 0 ? (
+                        <>
+                            <h3>- Vous avez réalisé {validatedGoalsCount} objectif(s)</h3>
+                            <h3>- Vos objectifs ont avancé
+                                de {((validatedGoalsCount / goals.length) * 100).toFixed(2)}%</h3>
+                        </>
+                    ) : (
+                        <h3>Vous n'avez pas validé d'objectif ce mois-ci</h3>
+                    )}
                 </article>
+
             </div>
         </section>
     );

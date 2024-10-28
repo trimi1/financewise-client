@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GoalsDTO from "../dto/goalsDTO.js";
+import DepenseDTO from "../dto/depenseDTO.js";
 
 function Goals() {
     const [idCreation, setIdCreation] = useState(-1)
@@ -68,7 +69,27 @@ function Goals() {
         }
         
         fetchGoals(); 
-    }, []); 
+    }, []);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/financewise/depenses/users/${localStorage.getItem("IDUSER")}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("TOKEN")}`
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Pas de réponse serveur');
+                }
+                return response.json();
+            })
+            .then(array => {
+                const depensesArray = array.map(depense => new DepenseDTO(depense));
+                setDepenses(depensesArray);
+            });
+    }, []);
 
     // Handle all processes of changing inputs in edit mode.
     function handleInputChange(event, goal, field) {
@@ -268,6 +289,7 @@ function Goals() {
             console.log(error.message)
         });
     }
+
     // This function patches the date to match the user's current time zone.
     function formatDate(goal) {
         const deadlineDate = updatedGoals.find(g => g.id === goal.id)?.deadline || goal.deadline;
@@ -296,8 +318,13 @@ function Goals() {
                                 <td> 
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="text" value={updatedGoals.find(g => g.id === goal.id)?.name || goal.name} onChange={(e) => handleInputChange(e, goal, 'name')}/>) : (goal.name)}
                                 </td>
-                                <td> 
-                                    {editMode && !hasBeenDeleted(goal.id) ? (<input type="number" min={0} value={updatedGoals.find(g => g.id === goal.id)?.montant || goal.montant} onChange={(e) => handleInputChange(e, goal, 'montant')}/>) : (goal.montant)}
+                                <td>
+                                    {editMode && !hasBeenDeleted(goal.id) ? (<input type="number" min={0} value={updatedGoals.find(g => g.id === goal.id)?.montant || goal.montant} onChange={(e) => handleInputChange(e, goal, 'montant')}/>)
+                                        : (
+                                            depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).length > 0 ?
+                                            depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0) + " / " + goal.montant + " (" + ((depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0)/goal.montant)*100).toFixed(2) + "%)"
+                                            : 0 + " / " + goal.montant + " (0%)")
+                                    }
                                 </td>
                                 <td>
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="date" value={formatDate(goal).toISOString().substr(0, 10)} onChange={(e) => handleInputChange(e, goal, 'deadline')}/>) : (new Date(goal.deadline).toLocaleDateString() )}
