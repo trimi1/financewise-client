@@ -26,6 +26,21 @@ function Categories() {
         return deletedCategories.some(deletedCategory => deletedCategory.idCategory === id)
     }
 
+    useEffect(() => {
+        if (updatedCategories) {
+            console.log("Updated categories have changed:", updatedCategories);
+        }
+        if (addedCategories) {
+            console.log("Added categories have changed:", addedCategories);
+        }
+        if (deletedCategories) {
+            console.log("Deleted categories have changed:", deletedCategories);
+        }
+        if (viewCategories) {
+            console.log("ViewCategories categories have changed:", viewCategories);
+        }
+    }, [addedCategories, updatedCategories, deletedCategories, viewCategories]);
+
     // Load all currencies and update the state of currencies at the first load of the component
     useEffect(() => {
         const fetchDevises = async () => {
@@ -122,7 +137,7 @@ function Categories() {
 
     function handleAddCategory() {
         const newCategory = new CategoryDTO({
-            id: idCreation,
+            idCategory: idCreation,
             name: "Nouvelle Catégorie",
             montantMax: 0,
             devise: "Euro",

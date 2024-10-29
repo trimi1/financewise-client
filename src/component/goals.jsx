@@ -195,9 +195,6 @@ function Goals() {
             let index = updatedGoals.findIndex(g => g.id === goal.id);
             setUpdatedGoals(() => { return updatedGoals.filter((_, i) => i !== index)});
             let defaultGoal = defaultGoals.find(g => g.id === goal.id);
-            console.log(goal)
-            console.log(defaultGoal)
-            console.log(updatedGoals)
             setViewGoals(prevViewGoals => [
                 ...prevViewGoals.slice(0, index),
                 defaultGoal,

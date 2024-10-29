@@ -24,4 +24,4 @@ return <>
 
 }
 
-export default AuthPage;
+export { AuthPage };

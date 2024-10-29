@@ -13,4 +13,4 @@ function GoalsPage() {
     );
 }
 
-export default GoalsPage;
+export {GoalsPage};

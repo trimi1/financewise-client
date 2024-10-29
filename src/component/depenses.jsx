@@ -354,13 +354,7 @@ function Depenses() {
                         </option>
                     ))}
                 </select>
-                <img
-                    id="img-graph-dep"
-                    src={chartImage}
-                    alt="Mode graphique"
-                    onClick={handleImageClick}
-                    className="marginL1"
-                />
+                <img id="img-graph-dep" src={chartImage} alt="Mode graphique" onClick={handleImageClick} className="marginL1"/>
             </div>
             {!showChart ? (
             <div id="container-table">

@@ -15,4 +15,4 @@ function DepensesPage() {
     )
 }
 
-export default DepensesPage;
+export { DepensesPage };
