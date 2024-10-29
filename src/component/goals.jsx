@@ -193,13 +193,10 @@ function Goals() {
 
         if(hasBeenUpdated(goal.id)) {
             let index = updatedGoals.findIndex(g => g.id === goal.id);
-            setUpdatedGoals(() => { return updatedGoals.filter((_, i) => i !== index)});
+            setUpdatedGoals([...updatedGoals.filter((_, i) => i !== index)]);
             let defaultGoal = defaultGoals.find(g => g.id === goal.id);
-            setViewGoals(prevViewGoals => [
-                ...prevViewGoals.slice(0, index),
-                defaultGoal,
-                ...prevViewGoals.slice(index + 1)
-            ]);
+            index = viewGoals.findIndex(g => g.id === goal.id);
+            setViewGoals(prevViewGoals => [...prevViewGoals.slice(0, index), defaultGoal, ...prevViewGoals.slice(index + 1)]);
             return;
         }
         
