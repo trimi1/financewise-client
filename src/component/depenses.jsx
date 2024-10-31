@@ -140,6 +140,7 @@ function Depenses() {
             let index = updatedDepense.findIndex(d => d.id === depense.id);
             setUpdatedDepense(updatedDepense.filter((_, i) => i !== index));
             let defaultDepense = depenses.find(d => d.id === depense.id);
+            index = filtredView.findIndex(d => d.id === depense.id);
             setFiltredView([...filtredView.slice(0, index), defaultDepense, ...filtredView.slice(index+1)])
             return;
         }

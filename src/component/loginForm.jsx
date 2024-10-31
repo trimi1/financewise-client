@@ -9,6 +9,10 @@ function LoginForm() {
     const [isDisabled, setIsDisabled] = useState(true);
     const [report, setReport] = useState("");
 
+    let regexProtection = /^[^<>&]*$/;
+    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{7,100}$/;
+
     const navigate = useNavigate();
 
     const handlePassword = (event) => {
@@ -21,12 +25,12 @@ function LoginForm() {
 
     const handleVisibilityPassword = (event) => {
         event.preventDefault();
-        event.target.textContent = isVisible ? "🔓" : "🔒";
         setIsVisible(!isVisible);
     };
 
     useEffect(() => {
-        if (password.length >= 6 && email.length > 0) {
+        console.log("REGEX PROTECTION : " + regexProtection.test(password) + " / REGEX PASSWORD : " + regexPassword.test(password))
+        if (regexEmail.test(email) && regexPassword.test(password)) {
             setIsDisabled(false);
         } else {
             setIsDisabled(true);
@@ -77,7 +81,7 @@ function LoginForm() {
                         type="email"
                         required="required"
                         maxLength="250"
-                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                         className="backBlueTextWhtie marginT3"
                         value={email}
                         onChange={handleEmail}
@@ -86,25 +90,19 @@ function LoginForm() {
                 </label>
                 <label className="text-White">
                     Mot de passe
-                    <div className="inputButton marginB5 marginT3">
+                    <div className="inputButton marginB5 marginT3 is-flex is-align-items-center">
                         <input
                             type={isVisible ? "text" : "password"}
                             value={password}
                             required="required"
-                            minLength="6"
-                            pattern="^[^<>&]*$"
+                            minLength="7"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{7,100}$"
                             onChange={handlePassword}
                             className="backBlueTextWhtie marginR5 width80"
                             placeholder="******"
                         />
-                        <button
-                            type="button"
-                            id="btnPswShow"
-                            onClick={handleVisibilityPassword}
-                            className="colorBlue borderWhite rounded25"
-                        >
-                            🔓
-                        </button>
+                        <img src={`./src/icon/${isVisible ? "hidden.png" : "visible.png"}`} onClick={handleVisibilityPassword}/>
+                            
                     </div>
                 </label>
                 <button

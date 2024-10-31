@@ -15,25 +15,25 @@ function RegisterForm() {
 
     const navigate = useNavigate();
 
-    const handleVisibilityPassword = (event) => {
-        event.preventDefault();
-        event.target.textContent = isVisible ? "🔓" : "🔒";
+    let regexProtection = /^[^<>&]*$/;
+    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{7,100}$/;
+
+    const handleVisibilityPassword = () => {
         setIsVisible(!isVisible);
     };
 
-    const handleVisibilityPswdConfirm = (event) => {
-        event.preventDefault();
-        event.target.textContent = isVisibleConfirm ? "🔓" : "🔒";
+    const handleVisibilityPswdConfirm = () => {
         setIsVisibleConfirm(!isVisibleConfirm);
     };
 
     useEffect(() => {
-        if (password.length >= 6 && confirmPassword.length >= 6 && password === confirmPassword) {
+        if (regexEmail.test(email) && regexProtection.test(password) && regexPassword.test(password)  && password === confirmPassword) {
             setIsDisabled(false);
         } else {
             setIsDisabled(true);
         }
-    }, [password, confirmPassword]);
+    }, [email, password, confirmPassword]);
 
     const register = async (firstName, lastName, email, password) => {
         try {
@@ -112,7 +112,7 @@ function RegisterForm() {
                         required
                         className="backWiheTextBlack"
                         maxLength="250"
-                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete="off"
@@ -125,18 +125,12 @@ function RegisterForm() {
                             type={isVisible ? "text" : "password"}
                             value={password}
                             required
-                            minLength="6"
-                            pattern="^[^<>&]*$"
+                            minLength="7"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{7,100}$"
                             onChange={(e) => setPassword(e.target.value)}
                             className="backWiheTextBlack marginR5 width80"
                         />
-                        <button
-                            type="button"
-                            onClick={handleVisibilityPassword}
-                            className="colorBlue borderBlack rounded25"
-                        >
-                            🔓
-                        </button>
+                        <img src={`./src/icon/${isVisible ? "hidden.png" : "visible.png"}`} onClick={handleVisibilityPassword} />
                     </div>
                 </label>
                 <label className="marginB5">
@@ -146,18 +140,12 @@ function RegisterForm() {
                             type={isVisibleConfirm ? "text" : "password"}
                             value={confirmPassword}
                             required
-                            minLength="6"
-                            pattern="^[^<>&]*$"
+                            minLength="7"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{7,100}$"
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             className="backWiheTextBlack marginR5 width80"
                         />
-                        <button
-                            type="button"
-                            onClick={handleVisibilityPswdConfirm}
-                            className="colorBlue borderBlack rounded25"
-                        >
-                            🔓
-                        </button>
+                        <img src={`./src/icon/${isVisibleConfirm ? "hidden.png" : "visible.png"}`} onClick={handleVisibilityPswdConfirm} />
                     </div>
                 </label>
                 <button

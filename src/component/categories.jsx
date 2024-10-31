@@ -165,6 +165,7 @@ function Categories() {
             let index = updatedCategories.findIndex(c => c.idCategory === category.idCategory);
             setUpdatedCategories(updatedCategories.filter((_, i) => i !== index));
             let defaultCategory = defaultCategories.find(c => c.idCategory === category.idCategory);
+            index = viewCategories.findIndex(c => c.idCategory === category.idCategory);
             setViewCategories([...viewCategories.slice(0, index), defaultCategory, ...viewCategories.slice(index + 1)]);
             return;
         }
