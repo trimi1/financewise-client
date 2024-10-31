@@ -86,8 +86,8 @@ function RegisterForm() {
                             className="backWiheTextBlack"
                             maxLength="100"
                             pattern="^[^<>&]*$"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
                             autoComplete="off"
                         />
                     </label>
@@ -99,8 +99,8 @@ function RegisterForm() {
                             className="backWiheTextBlack"
                             maxLength="100"
                             pattern="^[^<>&]*$"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
                             autoComplete="off"
                         />
                     </label>

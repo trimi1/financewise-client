@@ -112,7 +112,7 @@ function Depenses() {
     function handleAddDepense() {
         const newDepense = new DepenseDTO({
             id: idCreation,
-            name: "Nouvelle dépense",
+            name: "Dépense #" + (addedDepense.length + 1),
             montant: 0.0,
             devise: "Euro",
             date: new Date()

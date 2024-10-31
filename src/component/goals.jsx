@@ -165,7 +165,7 @@ function Goals() {
     function handleAddGoals() {
         const newGoal = new GoalsDTO({
             id: idCreation,
-            name: "Nouvel Objectif",
+            name: "Objectif #" + (addedGoals.length + 1),
             montant: 0.0,
             devise: "Euro",
             deadline: new Date(),
@@ -316,7 +316,7 @@ function Goals() {
                                     {editMode && !hasBeenDeleted(goal.id) ? (<input type="number" min={0} value={updatedGoals.find(g => g.id === goal.id)?.montant || goal.montant} onChange={(e) => handleInputChange(e, goal, 'montant')}/>)
                                         : (
                                             depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).length > 0 ?
-                                            depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0) + " / " + goal.montant + " (" + ((depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0)/goal.montant)*100).toFixed(2) + "%)"
+                                            depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0).toFixed(2) + " / " + goal.montant + " (" + ((depenses.filter(d => d.objectif !== null).filter(d => d.objectif.id === goal.id).reduce((total, depense) => total + depense.montant, 0)/goal.montant)*100).toFixed(2) + "%)"
                                             : 0 + " / " + goal.montant + " (0%)")
                                     }
                                 </td>
