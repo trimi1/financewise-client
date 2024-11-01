@@ -25,11 +25,17 @@ function DepenseChart({ categories, depenses }) {
             }),
             backgroundColor: categories.map(() => getRandomColor()),
             borderColor: categories.map(() => getRandomColor().replace(/0\.2$/, '1')),
-            borderWidth: 1
+            borderWidth: 2,
+            responsive: true,
+            maintainAspectRatio: true
         }]
     };
 
-    return <Pie data={chartData} />;
+    return (
+        <div style={{ width: '500px' }}>
+            <Pie data={chartData} />
+        </div>
+    );
 }
 
 export default DepenseChart;
